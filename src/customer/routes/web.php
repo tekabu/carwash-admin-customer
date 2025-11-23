@@ -20,6 +20,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
     Route::get('/history', [AuthController::class, 'history'])->name('history');
+    Route::get('/top-up', [AuthController::class, 'topUp'])->name('top-up');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 

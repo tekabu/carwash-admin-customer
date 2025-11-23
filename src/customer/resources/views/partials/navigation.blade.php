@@ -20,6 +20,7 @@
                     <li class="nav-item"><a class="nav-link {{ request()->is('contact') ? 'active' : '' }}" href="{{ url('contact') }}">Contact</a></li>
                     @auth
                         <li class="nav-item"><a class="nav-link {{ request()->is('history') ? 'active' : '' }}" href="{{ route('history') }}">History</a></li>
+                        <li class="nav-item"><a class="nav-link {{ request()->is('top-up') ? 'active' : '' }}" href="{{ route('top-up') }}">Top Up</a></li>
                     @endauth
                     @guest
                         <li class="nav-item dropdown">

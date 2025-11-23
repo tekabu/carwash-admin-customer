@@ -153,4 +153,26 @@ class AuthController extends Controller
 
         return view('auth.history', compact('transactions'));
     }
+
+    /**
+     * Show the top up page with history and submission form.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function topUp()
+    {
+        $user = Auth::user();
+        $topUps = collect();
+        $customerId = optional($user->customer)->id;
+
+        if ($user->customer) {
+            $topUps = $user->customer->topUps()
+                ->orderBy('created_at', 'desc')
+                ->get();
+        }
+
+        $topUpEndpoint = config('services.customer_top_up.url');
+
+        return view('auth.top-up', compact('topUps', 'topUpEndpoint', 'customerId'));
+    }
 }

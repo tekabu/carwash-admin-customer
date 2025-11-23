@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\Model;
+use App\Models\CustomerTopUp;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Customer extends Model
 {
@@ -36,5 +38,10 @@ class Customer extends Model
     public function transactions()
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    public function topUps(): HasMany
+    {
+        return $this->hasMany(CustomerTopUp::class);
     }
 }
