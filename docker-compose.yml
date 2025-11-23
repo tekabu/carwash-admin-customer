@@ -1,0 +1,67 @@
+services:
+  nginx:
+    build: 
+      context: ./build/nginx
+      dockerfile: Dockerfile
+    container_name: car-wash-nginx
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - ./src/admin:/var/www/html/admin
+      - ./src/customer:/var/www/html/customer
+    ports:
+      - 8011:80
+      - 8012:81
+    restart: unless-stopped
+
+  php:
+    build: 
+      context: ./build/php
+      dockerfile: Dockerfile
+    container_name: car-wash-php
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - ./src/admin:/var/www/html/admin
+      - ./src/customer:/var/www/html/customer
+    restart: unless-stopped
+
+  # filebrowser:
+  #   image: filebrowser/filebrowser:s6
+  #   container_name: car-wash-filebrowser
+  #   ports:
+  #     - 8012:80
+  #   volumes:
+  #     - ./src:/srv
+  #     - ./filebrowser/database:/database
+  #     - ./filebrowser/config:/config
+  #   restart: unless-stopped
+
+  mysql:
+    image: mysql:8.0
+    container_name: car-wash-mysql
+    ports:
+      - "8013:3306"
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: car_wash
+      MYSQL_USER: car_wash
+      MYSQL_PASSWORD: car_wash_password
+    restart: unless-stopped
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: car-wash-phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "8014:80"
+    depends_on:
+      - mysql
