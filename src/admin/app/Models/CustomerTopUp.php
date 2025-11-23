@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Storage;
 
 class CustomerTopUp extends Model
 {
-    use Common;
+    use Common {
+        getActionOptionsAttribute as getCommonActionOptionsAttribute;
+    }
 
     protected $route = 'customer-top-ups';
 
@@ -23,9 +25,19 @@ class CustomerTopUp extends Model
     protected $fillable = [
         'customer_id',
         'proof_of_payment',
+        'top_up_amount',
         'status',
         'remarks',
     ];
+
+    public function getActionOptionsAttribute()
+    {
+        if ($this->status === 'Approved') {
+            return '';
+        }
+
+        return $this->getCommonActionOptionsAttribute();
+    }
 
     public function customer(): BelongsTo
     {
@@ -39,5 +51,16 @@ class CustomerTopUp extends Model
         }
 
         return Storage::url($this->proof_of_payment);
+    }
+
+    public function creditCustomerBalance(float $amount = null): void
+    {
+        $amount ??= $this->top_up_amount;
+
+        if ($amount === null || $amount <= 0) {
+            return;
+        }
+
+        $this->customer()->increment('balance', $amount);
     }
 }

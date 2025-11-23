@@ -176,3 +176,18 @@ Once the setup is complete, you can access the applications at:
 - **Admin Application**: http://localhost:8011
 - **Customer Application**: http://localhost:8012
 - **phpMyAdmin**: http://localhost:8014
+
+## Public Customer Top-up API
+
+Third-party programs can create top-up requests by POSTing multipart data to the admin API:
+
+```bash
+curl -X POST http://localhost:8011/api/customer-top-ups \
+  -F "customer_id=123" \
+  -F "top_up_amount=500.00" \
+  -F "status=Pending" \
+  -F "remarks=Bank transfer reference XYZ" \
+  -F "proof_of_payment=@/path/to/proof.jpg;type=image/jpeg"
+```
+
+Adjust the host, `customer_id`, and attachment path as needed; the endpoint returns the created record in JSON (201 Created).

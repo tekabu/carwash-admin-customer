@@ -13,8 +13,19 @@
                 <option value="">Select a customer</option>
                 @foreach ($customers as $customer)
                     <option value="{{ $customer->id }}" @selected(isset($row) && $row->customer_id == $customer->id)>{{ $customer->name }} ({{ $customer->email }})</option>
-                @endforeach
+            @endforeach
             </select>
+        </div>
+    </div>
+
+    @php
+        $uuid_amount = Str::uuid();
+    @endphp
+    <div class="mb-3">
+        <div class="form-group">
+            <label for="{{ $uuid_amount }}" class="form-label">Top-up Amount<span class="required"> *</span></label>
+            <input id="{{ $uuid_amount }}" name="top_up_amount" type="number" class="form-control" step="0.01" min="0.01" placeholder="0.00" required="required" value="{{ isset($row) ? number_format($row->top_up_amount, 2, '.', '') : '' }}">
+            <small class="text-muted">Enter the amount to top up.</small>
         </div>
     </div>
 

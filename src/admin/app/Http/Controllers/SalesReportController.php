@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 
-class TransactionController extends Controller
+class SalesReportController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,9 @@ class TransactionController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('transactions.transactions_table', [
+        return view('sales_reports.sales_reports_table', [
             'table' => $transactions,
-            'route' => 'transactions',
+            'route' => 'sales-reports',
         ]);
     }
 }

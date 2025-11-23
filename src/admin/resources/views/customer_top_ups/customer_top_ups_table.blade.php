@@ -3,6 +3,22 @@
 @section('header_title', 'Customer Top-ups')
 
 @section('content')
+<style>
+    .proof-thumb {
+        width: 56px;
+        height: 56px;
+        object-fit: cover;
+        border-radius: 0.35rem;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .proof-thumb-name {
+        max-width: 90px;
+        font-size: 0.75rem;
+        text-align: center;
+        display: inline-block;
+    }
+</style>
 <div class="card">
     <div class="table-responsive">
         <table class="table dt datatable-basic dataTable">
@@ -10,6 +26,7 @@
                 <tr>
                     <th class="action">#</th>
                     <th class="customer">Customer</th>
+                    <th class="top_up_amount">Top-up Amount</th>
                     <th class="proof_of_payment">Proof of Payment</th>
                     <th class="status">Status</th>
                     <th class="remarks">Remarks</th>
@@ -41,6 +58,20 @@
         </div>
     </div>
 </div>
+<div id="modal-proof-viewer" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Proof of Payment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body text-center">
+                <img id="proof-viewer-image" src="" alt="Proof of payment" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('scripts')
@@ -53,6 +84,45 @@
 
 <script type="text/javascript">
     $(function() {
+        function escapeHtml(value) {
+            if (value == null) {
+                return '';
+            }
+
+            return String(value).replace(/[&<>"']/g, function(match) {
+                switch (match) {
+                    case '&':
+                        return '&amp;';
+                    case '<':
+                        return '&lt;';
+                    case '>':
+                        return '&gt;';
+                    case '"':
+                        return '&quot;';
+                    case "'":
+                        return '&#39;';
+                    default:
+                        return match;
+                }
+            });
+        }
+
+        function formatCurrency(value) {
+            if (value == null || value === '') {
+                return '';
+            }
+
+            var parsed = parseFloat(value);
+            if (Number.isNaN(parsed)) {
+                return escapeHtml(String(value));
+            }
+
+            var parts = parsed.toFixed(2).split('.');
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+            return '₱ ' + parts.join('.');
+        }
+
         const swalInit = Swal.mixin({
             buttonsStyling: false,
             customClass: {
@@ -82,13 +152,32 @@
                 { data: 'action_options' },
                 { data: 'customer.name', defaultContent: '' },
                 {
-                    data: 'proof_of_payment_url',
+                    data: 'top_up_amount',
                     render: function(data) {
+                        return formatCurrency(data);
+                    }
+                },
+                {
+                    data: 'proof_of_payment_url',
+                    render: function(data, type, row) {
                         if (!data) {
                             return '';
                         }
 
-                        return '<a class="text-reset text-decoration-underline" href="' + data + '" target="_blank" rel="noreferrer">View</a>';
+                        var url = String(data);
+                        var fileName = (row.proof_of_payment || '').split('/').pop() || 'Attachment';
+                        var previewName = escapeHtml(fileName);
+                        var extension = url.split('?')[0].split('.').pop().toLowerCase();
+
+                        if (extension === 'pdf') {
+                            return '<a class="text-reset text-decoration-underline d-inline-flex align-items-center" href="' + escapeHtml(url) + '" target="_blank" rel="noreferrer">' +
+                                '<i class="ph-file-pdf text-danger me-1"></i>' + previewName +
+                                '</a>';
+                        }
+
+                        return '<button type="button" class="btn btn-link p-0 proof-preview d-inline-flex flex-column align-items-center" data-url="' + escapeHtml(url) + '" data-filename="' + previewName + '">' +
+                            '<img src="' + escapeHtml(url) + '" alt="' + previewName + '" class="proof-thumb mb-1">' +
+                            '</button>';
                     }
                 },
                 { data: 'status' },
@@ -108,7 +197,7 @@
                 },
                 buttons: [
                     {
-                        text: '<i class="ph-plus"></i> Add Top-up Request',
+                        text: '<i class="ph-plus"></i> Add New',
                         className: 'btn-primary',
                         action: function(e, dt, node, config) {
                             $.ajax({
@@ -317,6 +406,25 @@
                     });
                 }
             });
+        });
+
+        $(document).on('click', '.proof-preview', function(event) {
+            event.preventDefault();
+
+            var url = $(this).data('url');
+            if (!url) {
+                return;
+            }
+
+            var filename = $(this).data('filename') || 'Proof of Payment';
+
+            $('#modal-proof-viewer .modal-title').text(filename);
+            $('#proof-viewer-image').attr('src', url);
+            $('#modal-proof-viewer').modal('show');
+        });
+
+        $(document).on('hidden.bs.modal', '#modal-proof-viewer', function() {
+            $('#proof-viewer-image').attr('src', '');
         });
     });
 </script>

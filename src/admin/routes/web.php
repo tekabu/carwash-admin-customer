@@ -6,10 +6,13 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CustomerTopUpController;
+use App\Http\Controllers\CustomerTopUpPublicApiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleTypeController;
 use App\Http\Controllers\PackageTypeController;
-use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\SalesReportController;
+
+Route::post('api/customer-top-ups', [CustomerTopUpPublicApiController::class, 'store'])->name('customer-top-ups.api.store');
 
 Route::get('login', [AuthController::class, 'index'])->name('login');
 
@@ -35,7 +38,7 @@ Route::middleware(['auth'])->group(function ()
     Route::resource('users', UserController::class);
     Route::resource('vehicle-types', VehicleTypeController::class);
     Route::resource('package-types', PackageTypeController::class);
-    Route::get('transactions', [TransactionController::class, 'index'])->name('transactions.index');
+    Route::get('sales-reports', [SalesReportController::class, 'index'])->name('sales-reports.index');
 });
 
 // Route::middleware(['guest'])->group(function () {

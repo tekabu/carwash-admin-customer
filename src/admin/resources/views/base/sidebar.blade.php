@@ -63,9 +63,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('transactions.index') }}" class="nav-link {{ request()->routeIs('transactions.index') ? 'active' : '' }}">
+                    <a href="{{ route('sales-reports.index') }}" class="nav-link {{ request()->routeIs('sales-reports.index') ? 'active' : '' }}">
                         <i class="ph-receipt"></i>
-                        <span>Transactions</span>
+                        <span>Sales Report</span>
                     </a>
                 </li>
 
