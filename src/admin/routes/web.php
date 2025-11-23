@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\CustomerTopUpController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleTypeController;
 use App\Http\Controllers\PackageTypeController;
@@ -30,6 +31,7 @@ Route::middleware(['auth'])->group(function ()
     Route::resource('customers', CustomerController::class);
     Route::get('customers/{customer}/add-balance', [CustomerController::class, 'showAddBalanceForm'])->name('customers.showAddBalanceForm');
     Route::post('customers/{customer}/add-balance', [CustomerController::class, 'addBalance'])->name('customers.addBalance');
+    Route::resource('customer-top-ups', CustomerTopUpController::class);
     Route::resource('users', UserController::class);
     Route::resource('vehicle-types', VehicleTypeController::class);
     Route::resource('package-types', PackageTypeController::class);

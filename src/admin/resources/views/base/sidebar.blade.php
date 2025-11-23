@@ -39,6 +39,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('customer-top-ups.index') }}" class="nav-link {{ request()->routeIs('customer-top-ups.*') ? 'active' : '' }}">
+                        <i class="ph-wallet"></i>
+                        <span>Top-ups</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('users.index') }}" class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}">
                         <i class="ph-users"></i>
                         <span>Users</span>
