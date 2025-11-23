@@ -68,10 +68,10 @@ php artisan storage:link
 Change ownership of storage directories to www-data for proper web server access:
 
 ```bash
-sudo chown -R www-data:www-data storage/logs
-sudo chown -R www-data:www-data storage/framework/cache
-sudo chown -R www-data:www-data storage/framework/sessions
-sudo chown -R www-data:www-data storage/framework/views
+chown -R www-data:www-data storage/logs
+chown -R www-data:www-data storage/framework/cache
+chown -R www-data:www-data storage/framework/sessions
+chown -R www-data:www-data storage/framework/views
 ```
 
 ### 8. Clear Caches (Optional)
