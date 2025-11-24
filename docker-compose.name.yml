@@ -1,0 +1,18 @@
+services:
+  nginx:
+    container_name: test001-nginx
+
+  php:
+    container_name: test001-php
+
+  mysql:
+    container_name: test001-mysql
+
+  phpmyadmin:
+    container_name: test001-phpmyadmin
+
+  filebrowser:
+    container_name: test001-filebrowser
+
+  cloudflared:
+    container_name: test001-cloudflared
