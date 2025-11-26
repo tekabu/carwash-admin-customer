@@ -40,7 +40,7 @@ class CustomerTopUpPublicApiController extends Controller
             'remarks' => $request->remarks,
         ]);
 
-        if ($status === 'Approved') {
+        if ($status === 'APPROVED') {
             $topUp->creditCustomerBalance();
         }
 

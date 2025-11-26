@@ -32,7 +32,7 @@ class CustomerTopUp extends Model
 
     public function getActionOptionsAttribute()
     {
-        if ($this->status === 'Approved') {
+        if ($this->status === 'APPROVED') {
             return '';
         }
 
