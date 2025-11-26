@@ -17,10 +17,17 @@ use App\Http\Controllers\SalesReportController;
 Route::get('api/vehicle-types', [VehicleTypePublicApiController::class, 'index'])->name('vehicle-types.api.index');
 Route::get('api/soap-types', [SoapTypePublicApiController::class, 'index'])->name('soap-types.api.index');
 Route::post('api/customer/{customer}/top-ups', [CustomerTopUpPublicApiController::class, 'store'])->name('customer-top-ups.api.store');
+
+# on tap of rfid
 Route::get('api/customer/rfid/check/{rfid}', [CustomerController::class, 'checkCustomerByRfid'])->name('customer.rfid.check');
+
+# before checkout
 Route::post('api/customer/{customer}/balance/check', [CustomerController::class, 'checkBalance'])->name('customer.balance.check');
-Route::get('api/customer/{customer}/points/redeem', [CustomerController::class, 'redeemPoints'])->name('customer.points.redeem');
+
+# after checkout, before starting cleaning
 Route::post('api/customer/{customer}/checkout', [CustomerController::class, 'checkout'])->name('customer.checkout');
+
+Route::get('api/customer/{customer}/points/redeem', [CustomerController::class, 'redeemPoints'])->name('customer.points.redeem');
 
 Route::get('login', [AuthController::class, 'index'])->name('login');
 
