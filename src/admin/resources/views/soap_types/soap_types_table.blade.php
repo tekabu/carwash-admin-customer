@@ -1,6 +1,6 @@
 @extends('base.base')
 
-@section('header_title', 'Vehicle Types')
+@section('header_title', 'Soap Types')
 
 @section('content')
 <style>
@@ -18,7 +18,7 @@
             <thead>
                 <tr>
                     <th class="action">#</th>
-                    <th class="vehicle_type">Vehicle Type</th>
+                    <th class="soap_type">Soap Type</th>
                     <th class="sub_title">Sub Title</th>
                     <th class="image_url">Image</th>
                     <th class="amount">Amount</th>
@@ -142,7 +142,7 @@
             data: {!! $table->toJson() !!},
             columns: [
                 { data: 'action_options' },
-                { data: 'vehicle_type' },
+                { data: 'soap_type' },
                 { data: 'sub_title', defaultContent: '' },
                 {
                     data: 'image_url',
@@ -154,7 +154,7 @@
                         var url = '{{ asset("storage") }}/' + String(data);
 
                         return '<button type="button" class="btn btn-link p-0 image-preview d-inline-flex flex-column align-items-center" data-url="' + escapeHtml(url) + '">' +
-                            '<img src="' + escapeHtml(url) + '" alt="Vehicle type image" class="image-thumb">' +
+                            '<img src="' + escapeHtml(url) + '" alt="Soap type image" class="image-thumb">' +
                             '</button>';
                     }
                 },
@@ -221,7 +221,7 @@
 
 		$(document).on('show.bs.modal', '#modal-entry', function ()
 		{
-			$('#modal-entry .modal-title').html(($('#modal-entry input[name="id"]').length > 0 ? 'Edit' : 'New') + ' Vehicle Type');
+			$('#modal-entry .modal-title').html(($('#modal-entry input[name="id"]').length > 0 ? 'Edit' : 'New') + ' Soap Type');
 		});
 
         $(document).on('click', '.btn[data-action="create"]', function ()
