@@ -63,10 +63,33 @@ const App = function () {
               sidebarMainToggler = document.querySelectorAll('.sidebar-main-resize'),
               resizeClass = 'sidebar-main-resized',
               unfoldClass = 'sidebar-main-unfold';
+        const sidebarResizeStateKey = 'app-sidebar-main-resized';
+
+        const readSidebarResizeState = () => {
+            try {
+                const stored = window.localStorage && window.localStorage.getItem(sidebarResizeStateKey);
+                return stored === 'true' ? true : stored === 'false' ? false : null;
+            } catch (error) {
+                return null;
+            }
+        };
+
+        const writeSidebarResizeState = (isResized) => {
+            try {
+                window.localStorage && window.localStorage.setItem(sidebarResizeStateKey, String(isResized));
+            } catch (error) {
+                // ignore storage errors
+            }
+        };
 
 
         // Config
         if (sidebarMainElement) {
+
+            const storedResizedState = readSidebarResizeState();
+            if (storedResizedState !== null) {
+                sidebarMainElement.classList.toggle(resizeClass, storedResizedState);
+            }
 
             // Define variables
             const unfoldDelay = 150;
@@ -79,6 +102,7 @@ const App = function () {
                     e.preventDefault();
                     sidebarMainElement.classList.toggle(resizeClass);
                     !sidebarMainElement.classList.contains(resizeClass) && sidebarMainElement.classList.remove(unfoldClass);
+                    writeSidebarResizeState(sidebarMainElement.classList.contains(resizeClass));
                 });                
             });
 
@@ -110,14 +134,38 @@ const App = function () {
               sidebarMainMobileToggler = document.querySelectorAll('.sidebar-mobile-main-toggle'),
               sidebarCollapsedClass = 'sidebar-collapsed',
               sidebarMobileExpandedClass = 'sidebar-mobile-expanded';
+        const sidebarStateKey = 'app-sidebar-main-collapsed';
+
+        const readSidebarState = () => {
+            try {
+                const stored = window.localStorage && window.localStorage.getItem(sidebarStateKey);
+                return stored === 'true' ? true : stored === 'false' ? false : null;
+            } catch (error) {
+                return null;
+            }
+        };
+
+        const writeSidebarState = (isCollapsed) => {
+            try {
+                window.localStorage && window.localStorage.setItem(sidebarStateKey, String(isCollapsed));
+            } catch (error) {
+                // ignore storage errors (e.g. private mode)
+            }
+        };
 
         // On desktop
         sidebarMainDesktopToggler.forEach(function(toggler) {
             toggler.addEventListener('click', function(e) {
                 e.preventDefault();
                 sidebarMainElement.classList.toggle(sidebarCollapsedClass);
+                writeSidebarState(sidebarMainElement.classList.contains(sidebarCollapsedClass));
             });                
         });
+
+        const storedCollapsedState = readSidebarState();
+        if (storedCollapsedState !== null) {
+            sidebarMainElement.classList.toggle(sidebarCollapsedClass, storedCollapsedState);
+        }
 
         // On mobile
         sidebarMainMobileToggler.forEach(function(toggler) {
