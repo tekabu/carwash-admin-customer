@@ -58,8 +58,7 @@ curl -X POST \
   -d '{
     "vehicle_type_id":1,
     "soap_type_id":2,
-    "total_amount":25.50,
-    "payment_type":"BALANCE DEDUCTION"
+    "total_amount":25.50
   }'
 ```
 Performs checkout for a customer with the requested services. Server returns a generated `reference`. Note: `customer_id` is optional.
