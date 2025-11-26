@@ -431,6 +431,23 @@ class CustomerController extends Controller
 
         $totalAmount = round((float) $vehicleType->amount + (float) $soapType->amount, 2);
 
+        if ($customer) {
+            $balance = $customer->balance ?? 0;
+            $isSufficient = $balance >= $totalAmount;
+
+            if (!$isSufficient) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Insufficient balance.',
+                    'data' => [
+                        'balance' => $balance,
+                        'total_amount' => $totalAmount,
+                        'shortfall' => $totalAmount - $balance,
+                    ],
+                ], 400);
+            }
+        }
+
         // Get ratio from .env
         $ratio = (int) env('POINTS_TO_BALANCE_RATIO', 1);
 
