@@ -68,14 +68,14 @@
 </div>
 
 <div class="row mt-3">
-    <!-- Package Type Demographics Pie Chart -->
+    <!-- Soap Type Demographics Pie Chart -->
     <div class="col-lg-4">
         <div class="card">
             <div class="card-header">
-                <h5 class="mb-0">Package Type Demographics</h5>
+                <h5 class="mb-0">Soap Type Demographics</h5>
             </div>
             <div class="card-body">
-                <div id="packageTypeChart" style="width: 100%; height: 350px;"></div>
+                <div id="soapTypeChart" style="width: 100%; height: 350px;"></div>
             </div>
         </div>
     </div>
@@ -156,9 +156,9 @@
 			};
 			monthlyTransactionsChart.setOption(monthlyOption);
 
-			// Package Type Demographics Pie Chart
-			const packageTypeChart = echarts.init(document.getElementById('packageTypeChart'));
-			const packageTypeOption = {
+			// Soap Type Demographics Pie Chart
+			const soapTypeChart = echarts.init(document.getElementById('soapTypeChart'));
+			const soapTypeOption = {
 				tooltip: {
 					trigger: 'item',
 					formatter: '{a} <br/>{b}: {c} ({d}%)'
@@ -169,10 +169,10 @@
 					type: 'scroll'
 				},
 				series: [{
-					name: 'Package Type',
+					name: 'Soap Type',
 					type: 'pie',
 					radius: '60%',
-					data: @json($packageTypeDemographics),
+					data: @json($soapTypeDemographics),
 					emphasis: {
 						itemStyle: {
 							shadowBlur: 10,
@@ -185,7 +185,7 @@
 					}
 				}]
 			};
-			packageTypeChart.setOption(packageTypeOption);
+			soapTypeChart.setOption(soapTypeOption);
 
 			// Vehicle Type Demographics Pie Chart
 			const vehicleTypeChart = echarts.init(document.getElementById('vehicleTypeChart'));
@@ -252,7 +252,7 @@
 			// Resize charts on window resize
 			window.addEventListener('resize', function() {
 				monthlyTransactionsChart.resize();
-				packageTypeChart.resize();
+				soapTypeChart.resize();
 				vehicleTypeChart.resize();
 				guestCustomerChart.resize();
 			});

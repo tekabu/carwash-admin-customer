@@ -57,9 +57,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('package-types.index') }}" class="nav-link {{ request()->routeIs('package-types.index') ? 'active' : '' }}">
+                    <a href="{{ route('soap-types.index') }}" class="nav-link {{ request()->routeIs('soap-types.index') ? 'active' : '' }}">
                         <i class="ph-package"></i>
-                        <span>Package Types</span>
+                        <span>Soap Types</span>
                     </a>
                 </li>
                 <li class="nav-item">
