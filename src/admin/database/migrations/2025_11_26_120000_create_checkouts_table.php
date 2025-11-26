@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreignId('vehicle_type_id')->constrained('vehicle_types')->cascadeOnDelete();
             $table->foreignId('soap_type_id')->constrained('soap_types')->cascadeOnDelete();
             $table->decimal('total_amount', 10, 2);
-            $table->enum('payment_type', ['balance deduction', 'cash']);
-            $table->enum('payment_status', ['pending', 'done'])->default('pending');
+            $table->enum('payment_type', ['BALANCE DEDUCTION', 'CASH']);
+            $table->enum('payment_status', ['PENDING', 'DONE'])->default('pending');
             $table->decimal('points', 15, 4)->default(0);
             $table->integer('ratio')->default(1);
             $table->timestamps();
