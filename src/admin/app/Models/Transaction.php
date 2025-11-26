@@ -18,7 +18,7 @@ class Transaction extends Model
         'is_guest',
         'customer_id',
         'vehicle_type_id',
-        'package_type_id',
+        'soap_type_id',
     ];
 
     /**
@@ -50,10 +50,10 @@ class Transaction extends Model
     }
 
     /**
-     * Get the package type associated with the transaction.
+     * Get the soap type associated with the transaction.
      */
-    public function packageType()
+    public function soapType()
     {
-        return $this->belongsTo(PackageType::class);
+        return $this->belongsTo(SoapType::class);
     }
 }
