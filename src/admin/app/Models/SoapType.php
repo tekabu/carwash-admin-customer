@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Traits\Common;
 
-class VehicleType extends Model
+class SoapType extends Model
 {
     use HasFactory, Common;
 
-    protected $route = 'vehicle-types';
+    protected $route = 'soap-types';
 
     protected $appends = [
         'action_edit_url',
@@ -25,7 +25,7 @@ class VehicleType extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'vehicle_type',
+        'soap_type',
         'sub_title',
         'image_url',
         'amount',
