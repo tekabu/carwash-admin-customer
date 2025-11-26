@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use App\Models\Customer;
 use App\Models\User;
 use App\Models\Checkout;
 use App\Models\VehicleType;
 use App\Models\SoapType;
+use App\Models\Transaction;
 
 class CustomerController extends Controller
 {
@@ -389,7 +392,6 @@ class CustomerController extends Controller
     public function checkout(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'reference' => 'required|unique:checkouts,reference',
             'vehicle_type_id' => 'required|exists:vehicle_types,id',
             'soap_type_id' => 'required|exists:soap_types,id',
             'customer_id' => 'nullable|exists:customers,id',
@@ -438,9 +440,10 @@ class CustomerController extends Controller
         $paymentType = $customer ? 'BALANCE DEDUCTION' : 'CASH';
 
         // Create checkout record
+        $reference = (string) Str::orderedUuid();
         $checkout = Checkout::create([
             'customer_id' => $customer?->id,
-            'reference' => $request->reference,
+            'reference' => $reference,
             'vehicle_type_id' => $request->vehicle_type_id,
             'soap_type_id' => $request->soap_type_id,
             'total_amount' => $totalAmount,
@@ -473,5 +476,72 @@ class CustomerController extends Controller
                 'created_at' => $checkout->created_at,
             ],
         ], 201);
+    }
+
+    /**
+     * Finalize the checkout once payment provider confirms success.
+     */
+    public function checkoutSuccess(string $reference)
+    {
+        $checkout = Checkout::with(['customer', 'vehicleType', 'soapType'])
+            ->where('reference', $reference)
+            ->first();
+
+        if (!$checkout) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Checkout reference not found.',
+            ], 404);
+        }
+
+        if ($checkout->payment_status === 'DONE') {
+            return response()->json([
+                'status' => false,
+                'message' => 'Checkout already completed.',
+            ], 409);
+        }
+
+        $transaction = DB::transaction(function () use ($checkout) {
+            $checkout->payment_status = 'DONE';
+            $checkout->save();
+
+            $customer = $checkout->customer;
+
+            if ($customer) {
+                $currentPoints = (float) ($customer->points ?? 0);
+                $customer->points = round($currentPoints + (float) ($checkout->points ?? 0), 4);
+                $customer->save();
+            }
+
+            return Transaction::create([
+                'is_guest' => $checkout->customer_id ? 0 : 1,
+                'customer_id' => $checkout->customer_id,
+                'vehicle_type_id' => $checkout->vehicle_type_id,
+                'soap_type_id' => $checkout->soap_type_id,
+            ]);
+        });
+
+        $checkout->refresh()->load(['customer', 'vehicleType', 'soapType']);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Checkout completed successfully.',
+            'data' => [
+                'checkout_id' => $checkout->id,
+                'reference' => $checkout->reference,
+                'payment_status' => $checkout->payment_status,
+                'points_awarded' => $checkout->points,
+                'transaction_id' => $transaction->id,
+                'is_guest' => $transaction->is_guest,
+                'customer_id' => $checkout->customer?->id,
+                'customer_name' => $checkout->customer?->name,
+                'customer_points' => $checkout->customer?->points,
+                'vehicle_type_id' => $checkout->vehicle_type_id,
+                'vehicle_type' => $checkout->vehicleType?->vehicle_type,
+                'soap_type_id' => $checkout->soap_type_id,
+                'soap_type' => $checkout->soapType?->soap_type,
+                'completed_at' => $checkout->updated_at,
+            ],
+        ], 200);
     }
 }
