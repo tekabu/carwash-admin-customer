@@ -14,23 +14,28 @@ use App\Http\Controllers\SoapTypeController;
 use App\Http\Controllers\SoapTypePublicApiController;
 use App\Http\Controllers\SalesReportController;
 
-Route::get('api/vehicle-types', [VehicleTypePublicApiController::class, 'index'])->name('vehicle-types.api.index');
-Route::get('api/soap-types', [SoapTypePublicApiController::class, 'index'])->name('soap-types.api.index');
-Route::post('api/customer/{customer}/top-ups', [CustomerTopUpPublicApiController::class, 'store'])->name('customer-top-ups.api.store');
+Route::prefix('api')->group(function () {
+    Route::get('vehicle-types', [VehicleTypePublicApiController::class, 'index'])->name('vehicle-types.api.index');
+    Route::get('soap-types', [SoapTypePublicApiController::class, 'index'])->name('soap-types.api.index');
 
-# on tap of rfid
-Route::post('api/customer/rfid/{rfid}/check', [CustomerController::class, 'checkCustomerByRfid'])->name('customer.rfid.check');
+    Route::prefix('customer')->group(function () {
+        Route::post('{customer}/top-ups', [CustomerTopUpPublicApiController::class, 'store'])->name('customer-top-ups.api.store');
 
-Route::post('api/customer/{customer}/points/redeem', [CustomerController::class, 'redeemPoints'])->name('customer.points.redeem');
+        # on tap of rfid
+        Route::post('rfid/{rfid}/check', [CustomerController::class, 'checkCustomerByRfid'])->name('customer.rfid.check');
 
-# before checkout
-Route::post('api/customer/{customer}/balance/check', [CustomerController::class, 'checkBalance'])->name('customer.balance.check');
+        Route::post('{customer}/points/redeem', [CustomerController::class, 'redeemPoints'])->name('customer.points.redeem');
 
-# after checkout, before starting cleaning
-# no customer id in rest parameters, can be a guest
-Route::post('api/customer/checkout', [CustomerController::class, 'checkout'])->name('customer.checkout');
+        # before checkout
+        Route::post('{customer}/balance/check', [CustomerController::class, 'checkBalance'])->name('customer.balance.check');
 
-Route::post('api/customer/checkout/{reference}/success', [CustomerController::class, 'checkoutSuccess'])->name('customer.checkout.success');
+        # after checkout, before starting cleaning
+        # no customer id in rest parameters, can be a guest
+        Route::post('checkout', [CustomerController::class, 'checkout'])->name('customer.checkout');
+        
+        Route::post('checkout/{reference}/success', [CustomerController::class, 'checkoutSuccess'])->name('customer.checkout.success');
+    });
+});
 
 Route::get('login', [AuthController::class, 'index'])->name('login');
 
