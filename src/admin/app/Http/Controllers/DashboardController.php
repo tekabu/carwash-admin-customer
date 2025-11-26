@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Customer;
 use App\Models\User;
 use App\Models\Transaction;
-use App\Models\PackageType;
+use App\Models\SoapType;
 use App\Models\VehicleType;
 
 class DashboardController extends Controller
@@ -35,14 +35,14 @@ class DashboardController extends Controller
             $monthlyData[] = $monthlyTransactions[$i] ?? 0;
         }
 
-        // Get package type demographics
-        $packageTypeDemographics = Transaction::select('package_types.package_type', DB::raw('COUNT(*) as count'))
-            ->join('package_types', 'transactions.package_type_id', '=', 'package_types.id')
-            ->groupBy('package_types.id', 'package_types.package_type')
+        // Get soap type demographics
+        $soapTypeDemographics = Transaction::select('soap_types.soap_type', DB::raw('COUNT(*) as count'))
+            ->join('soap_types', 'transactions.soap_type_id', '=', 'soap_types.id')
+            ->groupBy('soap_types.id', 'soap_types.soap_type')
             ->get()
             ->map(function($item) {
                 return [
-                    'name' => $item->package_type,
+                    'name' => $item->soap_type,
                     'value' => $item->count
                 ];
             });
@@ -76,7 +76,7 @@ class DashboardController extends Controller
             'transactionsCount' => $transactionsCount,
             'monthlyData' => $monthlyData,
             'currentYear' => $currentYear,
-            'packageTypeDemographics' => $packageTypeDemographics,
+            'soapTypeDemographics' => $soapTypeDemographics,
             'vehicleTypeDemographics' => $vehicleTypeDemographics,
             'guestDemographics' => $guestDemographics,
         ]);
