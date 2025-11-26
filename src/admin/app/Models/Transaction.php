@@ -19,6 +19,16 @@ class Transaction extends Model
         'customer_id',
         'vehicle_type_id',
         'soap_type_id',
+        'customer_name',
+        'vehicle_type',
+        'vehicle_type_amount',
+        'soap_type',
+        'soap_type_amount',
+        'total_amount',
+        'current_balance',
+        'new_balance',
+        'current_points',
+        'new_points',
     ];
 
     /**
@@ -30,6 +40,13 @@ class Transaction extends Model
     {
         return [
             'is_guest' => 'boolean',
+            'vehicle_type_amount' => 'decimal:2',
+            'soap_type_amount' => 'decimal:2',
+            'total_amount' => 'decimal:2',
+            'current_balance' => 'decimal:2',
+            'new_balance' => 'decimal:2',
+            'current_points' => 'decimal:4',
+            'new_points' => 'decimal:4',
         ];
     }
 

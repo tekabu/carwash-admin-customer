@@ -506,24 +506,49 @@ class CustomerController extends Controller
             $checkout->save();
 
             $customer = $checkout->customer;
+            $vehicleTypeName = $checkout->vehicleType?->vehicle_type;
+            $vehicleTypeAmount = $checkout->vehicleType ? round((float) $checkout->vehicleType->amount, 2) : null;
+            $soapTypeName = $checkout->soapType?->soap_type;
+            $soapTypeAmount = $checkout->soapType ? round((float) $checkout->soapType->amount, 2) : null;
+            $totalAmount = round((float) ($checkout->total_amount ?? 0), 2);
+            $customerName = $customer?->name ?? '';
+            $currentBalance = null;
+            $newBalance = null;
+            $currentPoints = null;
+            $newPoints = null;
 
             if ($customer) {
                 $currentBalance = (float) ($customer->getRawOriginal('balance') ?? 0);
-                
-                $newBalance = round($currentBalance - (float) ($checkout->total_amount ?? 0), 2);
-                
-                $customer->balance = $newBalance;
+                $newBalance = round($currentBalance - $totalAmount, 2);
+
+                # we let customer to have negative balance
+                // if ($newBalance < 0) {
+                //     throw new \RuntimeException('Insufficient balance to finalize checkout.');
+                // }
 
                 $currentPoints = (float) ($customer->points ?? 0);
-                $customer->points = round($currentPoints + (float) ($checkout->points ?? 0), 4);
+                $newPoints = round($currentPoints + (float) ($checkout->points ?? 0), 4);
+
+                $customer->balance = $newBalance;
+                $customer->points = $newPoints;
                 $customer->save();
             }
 
             return Transaction::create([
                 'is_guest' => $checkout->customer_id ? 0 : 1,
                 'customer_id' => $checkout->customer_id,
+                'customer_name' => $customerName,
                 'vehicle_type_id' => $checkout->vehicle_type_id,
+                'vehicle_type' => $vehicleTypeName,
+                'vehicle_type_amount' => $vehicleTypeAmount,
                 'soap_type_id' => $checkout->soap_type_id,
+                'soap_type' => $soapTypeName,
+                'soap_type_amount' => $soapTypeAmount,
+                'total_amount' => $totalAmount,
+                'current_balance' => $currentBalance,
+                'new_balance' => $newBalance,
+                'current_points' => $currentPoints,
+                'new_points' => $newPoints,
             ]);
         });
 
