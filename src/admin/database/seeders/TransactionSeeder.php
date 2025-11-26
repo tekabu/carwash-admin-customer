@@ -54,15 +54,25 @@ class TransactionSeeder extends Seeder
             $randomDate = \Carbon\Carbon::create(2025, rand(1, 12), rand(1, 28))
                 ->setTime(rand(8, 18), rand(0, 59), rand(0, 59));
 
+            $vehicle_type_name = $vehicleType->vehicle_type;
+            if ($vehicleType->vehicle_type->sub_title) {
+                $vehicle_type_name .= " ({$vehicleType->sub_title})"
+            }
+
+            $soap_type_name = $soapType->soap_type;
+            if ($soapType->soap_type->sub_title) {
+                $soap_type_name .= " ({$soapType->sub_title})"
+            }
+
             Transaction::create([
                 'is_guest' => $isGuest,
                 'customer_id' => $customer?->id,
                 'customer_name' => $customerName,
                 'vehicle_type_id' => $vehicleType->id,
-                'vehicle_type' => $vehicleType->vehicle_type,
+                'vehicle_type_name' => $vehicle_type_name,
                 'vehicle_type_amount' => $vehicleAmount,
                 'soap_type_id' => $soapType->id,
-                'soap_type' => $soapType->soap_type,
+                'soap_type_name' => $soap_type_name,
                 'soap_type_amount' => $soapAmount,
                 'total_amount' => $totalAmount,
                 'current_balance' => $currentBalance,
