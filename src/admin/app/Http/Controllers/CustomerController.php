@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Customer;
 use App\Models\User;
+use App\Models\Checkout;
 
 class CustomerController extends Controller
 {
@@ -378,5 +379,66 @@ class CustomerController extends Controller
                 'conversion_ratio' => $conversionRatio,
             ],
         ], 200);
+    }
+
+    /**
+     * Create a checkout transaction for the customer.
+     */
+    public function checkout(Request $request, Customer $customer)
+    {
+        $validator = Validator::make($request->all(), [
+            'reference' => 'required|uuid',
+            'vehicle_type' => 'required|string|max:255',
+            'soap_type' => 'required|string|max:255',
+            'total_amount' => 'required|numeric|min:0',
+            'payment_type' => 'required|in:balance deduction,cash',
+        ]);
+
+        if ($validator->fails()) {
+            $errorMessage = $validator->errors()->first();
+
+            return response()->json([
+                'status' => false,
+                'message' => $errorMessage,
+            ], 400);
+        }
+
+        // Get ratio from .env
+        $ratio = (int) env('POINTS_TO_BALANCE_RATIO', 1);
+
+        // Calculate points: points = total_amount * ratio
+        $points = (int) ($request->total_amount * $ratio);
+
+        // Create checkout record
+        $checkout = Checkout::create([
+            'customer_id' => $customer->id,
+            'reference' => $request->reference,
+            'vehicle_type' => $request->vehicle_type,
+            'soap_type' => $request->soap_type,
+            'total_amount' => $request->total_amount,
+            'payment_type' => $request->payment_type,
+            'payment_status' => 'pending',
+            'points' => $points,
+            'ratio' => $ratio,
+        ]);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Checkout created successfully.',
+            'data' => [
+                'checkout_id' => $checkout->id,
+                'customer_id' => $customer->id,
+                'customer_name' => $customer->name,
+                'reference' => $checkout->reference,
+                'vehicle_type' => $checkout->vehicle_type,
+                'soap_type' => $checkout->soap_type,
+                'total_amount' => $checkout->total_amount,
+                'payment_type' => $checkout->payment_type,
+                'payment_status' => $checkout->payment_status,
+                'points' => $checkout->points,
+                'ratio' => $checkout->ratio,
+                'created_at' => $checkout->created_at,
+            ],
+        ], 201);
     }
 }
