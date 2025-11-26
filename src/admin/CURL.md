@@ -22,10 +22,10 @@ curl -X POST \
   https://admin.example.com/api/customer/CUSTOMER_ID/top-ups \
   -F "proof_of_payment=@/path/to/receipt.jpg" \
   -F "top_up_amount=500.00" \
-  -F "status=Pending" \
+  -F "status=PENDING" \
   -F "remarks=Loaded via mobile app"
 ```
-Uploads proof of payment and records a pending top-up for the selected customer (status defaults to `Pending`).
+Uploads proof of payment and records a pending top-up for the selected customer (status defaults to `PENDING`).
 
 ## GET /api/customer/rfid/check/{rfid}
 ```bash
@@ -60,7 +60,7 @@ curl -X POST \
     "vehicle_type_id":1,
     "soap_type_id":2,
     "total_amount":25.50,
-    "payment_type":"balance deduction"
+    "payment_type":"BALANCE DEDUCTION"
   }'
 ```
 Performs checkout for a customer with the requested services.
