@@ -9,8 +9,8 @@ class Checkout extends Model
     protected $fillable = [
         'customer_id',
         'reference',
-        'vehicle_type',
-        'soap_type',
+        'vehicle_type_id',
+        'soap_type_id',
         'total_amount',
         'payment_type',
         'payment_status',
@@ -27,5 +27,15 @@ class Checkout extends Model
     public function customer()
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    public function vehicleType()
+    {
+        return $this->belongsTo(VehicleType::class);
+    }
+
+    public function soapType()
+    {
+        return $this->belongsTo(SoapType::class);
     }
 }
