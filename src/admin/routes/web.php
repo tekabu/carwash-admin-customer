@@ -9,10 +9,14 @@ use App\Http\Controllers\CustomerTopUpController;
 use App\Http\Controllers\CustomerTopUpPublicApiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleTypeController;
+use App\Http\Controllers\VehicleTypePublicApiController;
 use App\Http\Controllers\SoapTypeController;
+use App\Http\Controllers\SoapTypePublicApiController;
 use App\Http\Controllers\SalesReportController;
 
-Route::post('api/customer-top-ups', [CustomerTopUpPublicApiController::class, 'store'])->name('customer-top-ups.api.store');
+Route::get('api/vehicle-types', [VehicleTypePublicApiController::class, 'index'])->name('vehicle-types.api.index');
+Route::get('api/soap-types', [SoapTypePublicApiController::class, 'index'])->name('soap-types.api.index');
+Route::post('api/customer/{customer}/top-ups', [CustomerTopUpPublicApiController::class, 'store'])->name('customer-top-ups.api.store');
 Route::get('api/customer/rfid/check/{rfid}', [CustomerController::class, 'checkCustomerByRfid'])->name('customer.rfid.check');
 Route::post('api/customer/{customer}/balance/check', [CustomerController::class, 'checkBalance'])->name('customer.balance.check');
 Route::get('api/customer/{customer}/points/redeem', [CustomerController::class, 'redeemPoints'])->name('customer.points.redeem');
@@ -38,7 +42,8 @@ Route::middleware(['auth'])->group(function ()
     Route::resource('customers', CustomerController::class);
     Route::get('customers/{customer}/add-balance', [CustomerController::class, 'showAddBalanceForm'])->name('customers.showAddBalanceForm');
     Route::post('customers/{customer}/add-balance', [CustomerController::class, 'addBalance'])->name('customers.addBalance');
-    Route::resource('customer-top-ups', CustomerTopUpController::class);
+    Route::resource('customer/top-ups', CustomerTopUpController::class)
+        ->names('customer.top-ups');
     Route::resource('users', UserController::class);
     Route::resource('vehicle-types', VehicleTypeController::class);
     Route::resource('soap-types', SoapTypeController::class);

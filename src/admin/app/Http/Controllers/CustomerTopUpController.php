@@ -21,7 +21,7 @@ class CustomerTopUpController extends Controller
 
         return view('customer_top_ups.customer_top_ups_table', [
             'table' => $topUps,
-            'route' => 'customer-top-ups',
+            'route' => 'customer.top-ups',
         ]);
     }
 
@@ -31,7 +31,7 @@ class CustomerTopUpController extends Controller
     public function create()
     {
         $view = view('customer_top_ups.customer_top_ups_entry', [
-            'route' => 'customer-top-ups',
+            'route' => 'customer.top-ups',
             'customers' => Customer::all(),
         ])
         ->render();
@@ -68,7 +68,7 @@ class CustomerTopUpController extends Controller
             return response()->json($response, 400);
         }
 
-        $proofPath = $request->file('proof_of_payment')->store('customer-top-ups', 'public');
+        $proofPath = $request->file('proof_of_payment')->store('customer/top-ups', 'public');
         $status = $request->status ?? 'Pending';
 
         $topUp = CustomerTopUp::create([
@@ -113,7 +113,7 @@ class CustomerTopUpController extends Controller
         }
 
         $view = view('customer_top_ups.customer_top_ups_entry', [
-            'route' => 'customer-top-ups',
+            'route' => 'customer.top-ups',
             'row' => $customerTopUp,
             'customers' => Customer::all(),
         ])
@@ -159,7 +159,7 @@ class CustomerTopUpController extends Controller
         }
 
         if ($request->hasFile('proof_of_payment')) {
-            $proofPath = $request->file('proof_of_payment')->store('customer-top-ups', 'public');
+            $proofPath = $request->file('proof_of_payment')->store('customer/top-ups', 'public');
 
             if ($customerTopUp->proof_of_payment) {
                 Storage::delete($customerTopUp->proof_of_payment);

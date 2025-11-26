@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\CustomerTopUp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -11,10 +12,9 @@ class CustomerTopUpPublicApiController extends Controller
     /**
      * Store a top-up request on behalf of an unauthenticated third-party client.
      */
-    public function store(Request $request)
+    public function store(Customer $customer, Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'customer_id' => 'required|exists:customers,id',
             'proof_of_payment' => 'required|file|mimes:jpeg,jpg,png,pdf',
             'top_up_amount' => 'required|numeric|min:0.01',
             'status' => 'nullable|in:Pending,Approved,Disapproved',
@@ -29,11 +29,11 @@ class CustomerTopUpPublicApiController extends Controller
             ], 422);
         }
 
-        $proofPath = $request->file('proof_of_payment')->store('customer-top-ups', 'public');
+        $proofPath = $request->file('proof_of_payment')->store('customer/top-ups', 'public');
         $status = $request->status ?? 'Pending';
 
         $topUp = CustomerTopUp::create([
-            'customer_id' => $request->customer_id,
+            'customer_id' => $customer->id,
             'proof_of_payment' => $proofPath,
             'top_up_amount' => $request->top_up_amount,
             'status' => $status,

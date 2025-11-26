@@ -12,7 +12,7 @@ class CustomerTopUp extends Model
         getActionOptionsAttribute as getCommonActionOptionsAttribute;
     }
 
-    protected $route = 'customer-top-ups';
+    protected $route = 'customer.top-ups';
 
     protected $appends = [
         'action_edit_url',
