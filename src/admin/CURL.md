@@ -27,10 +27,10 @@ curl -X POST \
 ```
 Uploads proof of payment and records a pending top-up for the selected customer (status defaults to `PENDING`).
 
-## GET /api/customer/rfid/check/{rfid}
+## GET /api/customer/rfid/{rfid}/check
 ```bash
 curl -H "Accept: application/json" \
-  https://admin.example.com/api/customer/rfid/check/RFID_VALUE
+  https://admin.example.com/api/customer/rfid/RFID_VALUE/check
 ```
 Validates whether an RFID tag belongs to a registered customer.
 
@@ -50,11 +50,11 @@ curl -H "Accept: application/json" \
 ```
 Converts all redeemable points for the customer to balance using the server-defined ratio.
 
-## POST /api/customer/{customer}/checkout
+## POST /api/customer/checkout
 ```bash
 curl -X POST \
   -H "Content-Type: application/json" \
-  https://admin.example.com/api/customer/CUSTOMER_ID/checkout \
+  https://admin.example.com/api/customer/checkout \
   -d '{
     "reference":"4b0ab96f-3f4e-4bb7-9f6a-1bd1c4bfb9d5",
     "vehicle_type_id":1,
@@ -63,4 +63,4 @@ curl -X POST \
     "payment_type":"BALANCE DEDUCTION"
   }'
 ```
-Performs checkout for a customer with the requested services.
+Performs checkout for a customer with the requested services. Note: `customer_id` is optional.
