@@ -20,7 +20,7 @@ class Checkout extends Model
 
     protected $casts = [
         'total_amount' => 'decimal:2',
-        'points' => 'integer',
+        'points' => 'float',
         'ratio' => 'integer',
     ];
 

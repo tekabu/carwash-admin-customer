@@ -33,7 +33,7 @@ class CustomerSeeder extends Seeder
                 'address' => fake()->address(),
                 'rfid' => 'RFID' . str_pad($i + 1, 8, '0', STR_PAD_LEFT),
                 'balance' => rand(0, 5000),
-                'points' => rand(0, 1000),
+                'points' => fake()->randomFloat(4, 0, 1000),
             ]);
         }
 

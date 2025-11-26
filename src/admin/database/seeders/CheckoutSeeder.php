@@ -54,7 +54,7 @@ class CheckoutSeeder extends Seeder
             $totalAmount = ($vehicleType->amount ?? 0) + ($soapType->amount ?? 0);
 
             // Calculate points
-            $points = (int) ($totalAmount * $ratio);
+            $points = round($totalAmount * $ratio, 4);
 
             // Randomly select payment type
             $paymentType = $paymentTypes[array_rand($paymentTypes)];

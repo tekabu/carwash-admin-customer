@@ -83,7 +83,7 @@ class CustomerController extends Controller
             'email' => $request->email,
             'rfid' => $request->rfid,
             'balance' => 0,
-            'points' => 0,
+            'points' => 0.0,
         ]);
 
         $customer->refresh();
@@ -329,7 +329,7 @@ class CustomerController extends Controller
      */
     public function redeemPoints(Customer $customer)
     {
-        $points = $customer->points ?? 0;
+        $points = (float) ($customer->points ?? 0);
 
         if ($points <= 0) {
             return response()->json([
@@ -342,7 +342,7 @@ class CustomerController extends Controller
         $conversionRatio = (int) env('POINTS_TO_BALANCE_RATIO', 1);
 
         // Convert points to balance using whole numbers only
-        $balanceToAdd = (int) floor($points / $conversionRatio);
+        $balanceToAdd = floor($points / $conversionRatio);
 
         if ($balanceToAdd <= 0) {
             return response()->json([
@@ -355,8 +355,8 @@ class CustomerController extends Controller
         $oldPoints = $customer->points;
 
         // Calculate points used and remaining points
-        $pointsUsed = $balanceToAdd * $conversionRatio;
-        $remainingPoints = $oldPoints - $pointsUsed;
+        $pointsUsed = round($balanceToAdd * $conversionRatio, 4);
+        $remainingPoints = round($oldPoints - $pointsUsed, 4);
 
         // Update customer
         $customer->balance = $oldBalance + $balanceToAdd;
@@ -407,7 +407,7 @@ class CustomerController extends Controller
         $ratio = (int) env('POINTS_TO_BALANCE_RATIO', 1);
 
         // Calculate points: points = total_amount * ratio
-        $points = (int) ($request->total_amount * $ratio);
+        $points = round($request->total_amount * $ratio, 4);
 
         // Create checkout record
         $checkout = Checkout::create([

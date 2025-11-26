@@ -20,7 +20,7 @@ return new class extends Migration
             $table->decimal('total_amount', 10, 2);
             $table->enum('payment_type', ['balance deduction', 'cash']);
             $table->enum('payment_status', ['pending', 'done'])->default('pending');
-            $table->integer('points')->default(0);
+            $table->decimal('points', 15, 4)->default(0);
             $table->integer('ratio')->default(1);
             $table->timestamps();
         });

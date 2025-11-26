@@ -28,6 +28,10 @@ class Customer extends Model
         'points',
     ];
 
+    protected $casts = [
+        'points' => 'float',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
