@@ -31,7 +31,12 @@ class CustomerSeeder extends Seeder
                 'email' => $user->email,
                 'phone' => fake()->phoneNumber(),
                 'address' => fake()->address(),
+                'rfid' => 'RFID' . str_pad($i + 1, 8, '0', STR_PAD_LEFT),
+                'balance' => rand(0, 5000),
+                'points' => rand(0, 1000),
             ]);
         }
+
+        $this->command->info('Created 10 customer records successfully!');
     }
 }
