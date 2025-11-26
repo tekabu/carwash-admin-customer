@@ -508,6 +508,12 @@ class CustomerController extends Controller
             $customer = $checkout->customer;
 
             if ($customer) {
+                $currentBalance = (float) ($customer->getRawOriginal('balance') ?? 0);
+                
+                $newBalance = round($currentBalance - (float) ($checkout->total_amount ?? 0), 2);
+                
+                $customer->balance = $newBalance;
+
                 $currentPoints = (float) ($customer->points ?? 0);
                 $customer->points = round($currentPoints + (float) ($checkout->points ?? 0), 4);
                 $customer->save();
