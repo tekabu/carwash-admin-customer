@@ -19,11 +19,13 @@ List of soap/service types.
 ## POST /api/customer/{customer}/top-ups
 ```bash
 curl -X POST \
-  -H "Content-Type: application/json" \
   https://admin.example.com/api/customer/CUSTOMER_ID/top-ups \
-  -d '{"amount":50.0,"notes":"App top-up"}'
+  -F "proof_of_payment=@/path/to/receipt.jpg" \
+  -F "top_up_amount=500.00" \
+  -F "status=Pending" \
+  -F "remarks=Loaded via mobile app"
 ```
-Adds credit to a customer account.
+Uploads proof of payment and records a pending top-up for the selected customer (status defaults to `Pending`).
 
 ## GET /api/customer/rfid/check/{rfid}
 ```bash
@@ -36,22 +38,29 @@ Validates whether an RFID tag belongs to a registered customer.
 ```bash
 curl -X POST \
   -H "Content-Type: application/json" \
-  https://admin.example.com/api/customer/CUSTOMER_ID/balance/check
+  https://admin.example.com/api/customer/CUSTOMER_ID/balance/check \
+  -d '{"cart_amount":150.75}'
 ```
 Returns the current balance for the customer.
 
 ## GET /api/customer/{customer}/points/redeem
 ```bash
 curl -H "Accept: application/json" \
-  https://admin.example.com/api/customer/CUSTOMER_ID/points/redeem?points=100
+  https://admin.example.com/api/customer/CUSTOMER_ID/points/redeem
 ```
-Redeem loyalty points for a customer; adjust `points` query to the desired amount.
+Converts all redeemable points for the customer to balance using the server-defined ratio.
 
 ## POST /api/customer/{customer}/checkout
 ```bash
 curl -X POST \
   -H "Content-Type: application/json" \
   https://admin.example.com/api/customer/CUSTOMER_ID/checkout \
-  -d '{"vehicle_type_id":1,"soap_type_id":2,"extras":[],"amount":25.5}'
+  -d '{
+    "reference":"4b0ab96f-3f4e-4bb7-9f6a-1bd1c4bfb9d5",
+    "vehicle_type_id":1,
+    "soap_type_id":2,
+    "total_amount":25.50,
+    "payment_type":"balance deduction"
+  }'
 ```
 Performs checkout for a customer with the requested services.
