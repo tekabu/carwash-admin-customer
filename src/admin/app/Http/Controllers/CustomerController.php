@@ -388,8 +388,8 @@ class CustomerController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'reference' => 'required|uuid',
-            'vehicle_type' => 'required|string|max:255',
-            'soap_type' => 'required|string|max:255',
+            'vehicle_type_id' => 'required|exists:vehicle_types,id',
+            'soap_type_id' => 'required|exists:soap_types,id',
             'total_amount' => 'required|numeric|min:0',
             'payment_type' => 'required|in:balance deduction,cash',
         ]);
@@ -413,14 +413,17 @@ class CustomerController extends Controller
         $checkout = Checkout::create([
             'customer_id' => $customer->id,
             'reference' => $request->reference,
-            'vehicle_type' => $request->vehicle_type,
-            'soap_type' => $request->soap_type,
+            'vehicle_type_id' => $request->vehicle_type_id,
+            'soap_type_id' => $request->soap_type_id,
             'total_amount' => $request->total_amount,
             'payment_type' => $request->payment_type,
             'payment_status' => 'pending',
             'points' => $points,
             'ratio' => $ratio,
         ]);
+
+        // Load relationships
+        $checkout->load(['vehicleType', 'soapType']);
 
         return response()->json([
             'status' => true,
@@ -430,8 +433,10 @@ class CustomerController extends Controller
                 'customer_id' => $customer->id,
                 'customer_name' => $customer->name,
                 'reference' => $checkout->reference,
-                'vehicle_type' => $checkout->vehicle_type,
-                'soap_type' => $checkout->soap_type,
+                'vehicle_type_id' => $checkout->vehicle_type_id,
+                'vehicle_type' => $checkout->vehicleType?->vehicle_type,
+                'soap_type_id' => $checkout->soap_type_id,
+                'soap_type' => $checkout->soapType?->soap_type,
                 'total_amount' => $checkout->total_amount,
                 'payment_type' => $checkout->payment_type,
                 'payment_status' => $checkout->payment_status,
