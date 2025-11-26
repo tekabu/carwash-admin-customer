@@ -29,6 +29,7 @@ Route::post('api/customer/{customer}/balance/check', [CustomerController::class,
 # after checkout, before starting cleaning
 # no customer id in rest parameters, can be a guest
 Route::post('api/customer/checkout', [CustomerController::class, 'checkout'])->name('customer.checkout');
+
 Route::post('api/customer/checkout/{reference}/success', [CustomerController::class, 'checkoutSuccess'])->name('customer.checkout.success');
 
 Route::get('login', [AuthController::class, 'index'])->name('login');
