@@ -5,20 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use App\Models\VehicleType;
+use App\Models\SoapType;
 
-class VehicleTypeController extends Controller
+class SoapTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $vehicleTypes = VehicleType::all();
+        $soapTypes = SoapType::all();
 
-        return view('vehicle_types.vehicle_types_table', [
-            'table' => $vehicleTypes,
-            'route' => 'vehicle-types',
+        return view('soap_types.soap_types_table', [
+            'table' => $soapTypes,
+            'route' => 'soap-types',
         ]);
     }
 
@@ -27,8 +27,8 @@ class VehicleTypeController extends Controller
      */
     public function create()
     {
-        $view = view('vehicle_types.vehicle_types_entry', [
-            'route' => 'vehicle-types',
+        $view = view('soap_types.soap_types_entry', [
+            'route' => 'soap-types',
         ])
         ->render();
 
@@ -45,7 +45,7 @@ class VehicleTypeController extends Controller
     {
         $validator = Validator::make($request->all(),
         [
-            'vehicle_type' => 'required|string|max:255|unique:vehicle_types,vehicle_type',
+            'soap_type' => 'required|string|max:255|unique:soap_types,soap_type',
             'sub_title' => 'nullable|string|max:500',
             'image_url' => 'nullable|file|mimes:jpeg,jpg,png',
             'amount' => 'required|numeric|min:0',
@@ -65,11 +65,11 @@ class VehicleTypeController extends Controller
 
         $imagePath = null;
         if ($request->hasFile('image_url')) {
-            $imagePath = $request->file('image_url')->store('vehicle-types', 'public');
+            $imagePath = $request->file('image_url')->store('soap-types', 'public');
         }
 
-        $vehicleType = VehicleType::create([
-            'vehicle_type' => $request->vehicle_type,
+        $soapType = SoapType::create([
+            'soap_type' => $request->soap_type,
             'sub_title' => $request->sub_title,
             'image_url' => $imagePath,
             'amount' => $request->amount,
@@ -77,8 +77,8 @@ class VehicleTypeController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => 'Vehicle type created successfully.',
-            'data' => $vehicleType,
+            'message' => 'Soap type created successfully.',
+            'data' => $soapType,
         ]);
     }
 
@@ -93,11 +93,11 @@ class VehicleTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(VehicleType $vehicleType)
+    public function edit(SoapType $soapType)
     {
-        $view = view('vehicle_types.vehicle_types_entry', [
-            'route' => 'vehicle-types',
-            'row' => $vehicleType,
+        $view = view('soap_types.soap_types_entry', [
+            'route' => 'soap-types',
+            'row' => $soapType,
         ])
         ->render();
 
@@ -110,11 +110,11 @@ class VehicleTypeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, VehicleType $vehicleType)
+    public function update(Request $request, SoapType $soapType)
     {
         $validator = Validator::make($request->all(),
         [
-            'vehicle_type' => 'required|string|max:255|unique:vehicle_types,vehicle_type,' . $vehicleType->id,
+            'soap_type' => 'required|string|max:255|unique:soap_types,soap_type,' . $soapType->id,
             'sub_title' => 'nullable|string|max:500',
             'image_url' => 'nullable|file|mimes:jpeg,jpg,png',
             'amount' => 'required|numeric|min:0',
@@ -133,54 +133,54 @@ class VehicleTypeController extends Controller
         }
 
         if ($request->hasFile('image_url')) {
-            $imagePath = $request->file('image_url')->store('vehicle-types', 'public');
+            $imagePath = $request->file('image_url')->store('soap-types', 'public');
 
-            if ($vehicleType->image_url) {
-                Storage::disk('public')->delete($vehicleType->image_url);
+            if ($soapType->image_url) {
+                Storage::disk('public')->delete($soapType->image_url);
             }
 
-            $vehicleType->image_url = $imagePath;
+            $soapType->image_url = $imagePath;
         }
 
-        $vehicleType->vehicle_type = $request->vehicle_type;
-        $vehicleType->sub_title = $request->sub_title;
-        $vehicleType->amount = $request->amount;
-        $vehicleType->save();
+        $soapType->soap_type = $request->soap_type;
+        $soapType->sub_title = $request->sub_title;
+        $soapType->amount = $request->amount;
+        $soapType->save();
 
         return response()->json([
             'status' => true,
-            'message' => 'Vehicle type updated successfully.',
-            'data' => $vehicleType,
+            'message' => 'Soap type updated successfully.',
+            'data' => $soapType,
         ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(VehicleType $vehicleType)
+    public function destroy(SoapType $soapType)
     {
-        $checkoutCount = \App\Models\Checkout::where('vehicle_type_id', $vehicleType->id)->count();
-        $transactionCount = \App\Models\Transaction::where('vehicle_type_id', $vehicleType->id)->count();
+        $checkoutCount = \App\Models\Checkout::where('soap_type_id', $soapType->id)->count();
+        $transactionCount = \App\Models\Transaction::where('soap_type_id', $soapType->id)->count();
 
         if ($checkoutCount > 0 || $transactionCount > 0) {
             return response()->json([
                 'status' => false,
-                'message' => 'Cannot delete this vehicle type because it is being used in ' .
+                'message' => 'Cannot delete this soap type because it is being used in ' .
                     ($checkoutCount > 0 ? $checkoutCount . ' checkout(s)' : '') .
                     ($checkoutCount > 0 && $transactionCount > 0 ? ' and ' : '') .
                     ($transactionCount > 0 ? $transactionCount . ' transaction(s)' : '') . '.'
             ], 400);
         }
 
-        if ($vehicleType->image_url) {
-            Storage::disk('public')->delete($vehicleType->image_url);
+        if ($soapType->image_url) {
+            Storage::disk('public')->delete($soapType->image_url);
         }
 
-        $vehicleType->delete();
+        $soapType->delete();
 
         return response()->json([
             'status' => true,
-            'message' => 'Vehicle type deleted successfully.'
+            'message' => 'Soap type deleted successfully.'
         ]);
     }
 }
