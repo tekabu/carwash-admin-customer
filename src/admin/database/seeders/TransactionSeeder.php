@@ -56,12 +56,12 @@ class TransactionSeeder extends Seeder
 
             $vehicle_type_name = $vehicleType->vehicle_type;
             if ($vehicleType->vehicle_type->sub_title) {
-                $vehicle_type_name .= " ({$vehicleType->sub_title})"
+                $vehicle_type_name .= " ({$vehicleType->sub_title})";
             }
 
             $soap_type_name = $soapType->soap_type;
             if ($soapType->soap_type->sub_title) {
-                $soap_type_name .= " ({$soapType->sub_title})"
+                $soap_type_name .= " ({$soapType->sub_title})";
             }
 
             Transaction::create([
