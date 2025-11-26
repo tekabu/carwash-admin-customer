@@ -46,6 +46,24 @@ class CustomerTopUpPublicApiController extends Controller
 
         $topUp->load('customer');
 
+        $topUp->makeHidden([
+            'action_edit_url',
+            'action_update_url',
+            'action_delete_url',
+            'action_options',
+        ]);
+
+        if ($topUp->relationLoaded('customer') && $topUp->customer) {
+            $topUp->customer->makeHidden([
+                'action_edit_url',
+                'action_update_url',
+                'action_delete_url',
+                'action_add_balance_url',
+                'action_update_balance_url',
+                'action_options',
+            ]);
+        }
+
         return response()->json([
             'status' => true,
             'message' => 'Top-up request recorded successfully.',
