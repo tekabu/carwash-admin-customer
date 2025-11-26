@@ -248,4 +248,78 @@ class CustomerController extends Controller
             'data' => $customer,
         ]);
     }
+
+    /**
+     * Check if a customer exists using RFID.
+     */
+    public function checkCustomerByRfid($rfid)
+    {
+        if (empty($rfid)) {
+            return response()->json([
+                'status' => false,
+                'message' => 'RFID is required.',
+            ], 400);
+        }
+
+        $customer = Customer::where('rfid', $rfid)->first();
+
+        if ($customer) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Customer found.',
+                'data' => [
+                    'id' => $customer->id,
+                    'name' => $customer->name,
+                    'email' => $customer->email,
+                    'phone' => $customer->phone,
+                    'rfid' => $customer->rfid,
+                    'balance' => $customer->balance,
+                    'points' => $customer->points,
+                ],
+            ], 200);
+        }
+
+        return response()->json([
+            'status' => false,
+            'message' => 'Customer not found.',
+        ], 404);
+    }
+
+    /**
+     * Check if customer balance is sufficient for cart amount.
+     */
+    public function checkBalance(Request $request, Customer $customer)
+    {
+        $cartAmount = $request->input('cart_amount');
+
+        if (empty($cartAmount) && $cartAmount !== 0 && $cartAmount !== '0') {
+            return response()->json([
+                'status' => false,
+                'message' => 'Cart amount is required.',
+            ], 400);
+        }
+
+        if (!is_numeric($cartAmount)) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Cart amount must be a valid number.',
+            ], 400);
+        }
+
+        $balance = $customer->balance ?? 0;
+        $isSufficient = $balance >= $cartAmount;
+
+        return response()->json([
+            'status' => true,
+            'message' => $isSufficient ? 'Balance is sufficient.' : 'Insufficient balance.',
+            'data' => [
+                'customer_id' => $customer->id,
+                'customer_name' => $customer->name,
+                'balance' => $balance,
+                'cart_amount' => (float) $cartAmount,
+                'is_sufficient' => $isSufficient,
+                'shortfall' => $isSufficient ? 0 : $cartAmount - $balance,
+            ],
+        ], 200);
+    }
 }
