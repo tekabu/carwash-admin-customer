@@ -17,7 +17,7 @@
                         <p>Upload your proof of payment to request a manual top up.</p>
                     </div>
 
-                    @if (empty($topUpEndpoint))
+                    @if (empty($topUpEndpointTemplate))
                         <div class="alert alert-warning">
                             <i class="far fa-exclamation-triangle"></i> Top up service is not yet configured. Please contact support.
                         </div>
@@ -27,8 +27,7 @@
                         </div>
                     @else
                         <form id="topUpForm" class="row g-3" enctype="multipart/form-data"
-                            data-endpoint="{{ $topUpEndpoint }}"
-                            data-customer-id="{{ $customerId }}">
+                            data-endpoint="{{ $topUpEndpoint }}">
 
                             <div class="col-md-6">
                                 <label class="form-label">Top Up Amount</label>
@@ -150,7 +149,6 @@
             event.preventDefault();
 
             const endpoint = topUpForm.dataset.endpoint;
-            const customerId = topUpForm.dataset.customerId;
             const amount = topUpForm.querySelector('input[name="top_up_amount"]').value;
             const remarks = topUpForm.querySelector('textarea[name="remarks"]').value;
             const proofInput = topUpForm.querySelector('input[name="proof_of_payment"]');
@@ -158,11 +156,6 @@
 
             if (!endpoint) {
                 showStatus('Top up endpoint is not configured.', 'warning');
-                return;
-            }
-
-            if (!customerId) {
-                showStatus('No customer ID could be resolved for this request.', 'warning');
                 return;
             }
 
@@ -177,9 +170,8 @@
             }
 
             const formData = new FormData();
-            formData.append('customer_id', customerId);
             formData.append('top_up_amount', amount);
-            formData.append('status', 'Pending');
+            formData.append('status', 'PENDING');
             formData.append('remarks', remarks || '');
             formData.append('proof_of_payment', proofFile, proofFile.name);
 

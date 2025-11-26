@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Customer;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -171,8 +172,33 @@ class AuthController extends Controller
                 ->get();
         }
 
-        $topUpEndpoint = config('services.customer_top_up.url');
+        $topUpEndpointTemplate = config('services.customer_top_up.url_template');
+        $topUpEndpoint = $this->resolveCustomerTopUpEndpoint($topUpEndpointTemplate, $customerId);
 
-        return view('auth.top-up', compact('topUps', 'topUpEndpoint', 'customerId'));
+        return view('auth.top-up', compact('topUps', 'topUpEndpoint', 'topUpEndpointTemplate', 'customerId'));
+    }
+
+    /**
+     * Resolve the configured customer top up URL for a specific customer.
+     */
+    protected function resolveCustomerTopUpEndpoint(?string $template, ?int $customerId): ?string
+    {
+        if (! $template || ! $customerId) {
+            return null;
+        }
+
+        if (Str::contains($template, '{customer_id}')) {
+            return str_replace('{customer_id}', $customerId, $template);
+        }
+
+        if (Str::contains($template, '{customerId}')) {
+            return str_replace('{customerId}', $customerId, $template);
+        }
+
+        if (Str::endsWith($template, 'customer-top-ups')) {
+            return Str::replaceLast('customer-top-ups', "customer/{$customerId}/top-ups", $template);
+        }
+
+        return rtrim($template, '/') . '/customer/' . $customerId . '/top-ups';
     }
 }
