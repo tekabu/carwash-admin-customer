@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Customer;
 use App\Models\User;
 use App\Models\Checkout;
+use App\Models\VehicleType;
+use App\Models\SoapType;
 
 class CustomerController extends Controller
 {
@@ -384,14 +386,13 @@ class CustomerController extends Controller
     /**
      * Create a checkout transaction for the customer.
      */
-    public function checkout(Request $request, Customer $customer)
+    public function checkout(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'reference' => 'required|uuid',
+            'reference' => 'required|unique:checkouts,reference',
             'vehicle_type_id' => 'required|exists:vehicle_types,id',
             'soap_type_id' => 'required|exists:soap_types,id',
-            'total_amount' => 'required|numeric|min:0',
-            'payment_type' => 'required|in:balance deduction,cash',
+            'customer_id' => 'nullable|exists:customers,id',
         ]);
 
         if ($validator->fails()) {
@@ -403,21 +404,48 @@ class CustomerController extends Controller
             ], 400);
         }
 
+        $customer = null;
+
+        if ($request->filled('customer_id')) {
+            $customer = Customer::find($request->customer_id);
+
+            if (!$customer) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Customer not found.',
+                ], 404);
+            }
+        }
+
+        $vehicleType = VehicleType::find($request->vehicle_type_id);
+        $soapType = SoapType::find($request->soap_type_id);
+
+        if (!$vehicleType || !$soapType) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Unable to determine service pricing.',
+            ], 404);
+        }
+
+        $totalAmount = round((float) $vehicleType->amount + (float) $soapType->amount, 2);
+
         // Get ratio from .env
         $ratio = (int) env('POINTS_TO_BALANCE_RATIO', 1);
 
         // Calculate points: points = total_amount * ratio
-        $points = round($request->total_amount * $ratio, 4);
+        $points = round($totalAmount / $ratio, 4);
+
+        $paymentType = $customer ? 'BALANCE DEDUCTION' : 'CASH';
 
         // Create checkout record
         $checkout = Checkout::create([
-            'customer_id' => $customer->id,
+            'customer_id' => $customer?->id,
             'reference' => $request->reference,
             'vehicle_type_id' => $request->vehicle_type_id,
             'soap_type_id' => $request->soap_type_id,
-            'total_amount' => $request->total_amount,
-            'payment_type' => $request->payment_type,
-            'payment_status' => 'pending',
+            'total_amount' => $totalAmount,
+            'payment_type' => $paymentType,
+            'payment_status' => 'PENDING',
             'points' => $points,
             'ratio' => $ratio,
         ]);
@@ -430,8 +458,8 @@ class CustomerController extends Controller
             'message' => 'Checkout created successfully.',
             'data' => [
                 'checkout_id' => $checkout->id,
-                'customer_id' => $customer->id,
-                'customer_name' => $customer->name,
+                'customer_id' => $customer?->id,
+                'customer_name' => $customer?->name,
                 'reference' => $checkout->reference,
                 'vehicle_type_id' => $checkout->vehicle_type_id,
                 'vehicle_type' => $checkout->vehicleType?->vehicle_type,

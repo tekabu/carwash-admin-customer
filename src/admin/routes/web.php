@@ -25,7 +25,7 @@ Route::get('api/customer/rfid/check/{rfid}', [CustomerController::class, 'checkC
 Route::post('api/customer/{customer}/balance/check', [CustomerController::class, 'checkBalance'])->name('customer.balance.check');
 
 # after checkout, before starting cleaning
-Route::post('api/customer/{customer}/checkout', [CustomerController::class, 'checkout'])->name('customer.checkout');
+Route::post('api/customer/checkout', [CustomerController::class, 'checkout'])->name('customer.checkout');
 
 Route::get('api/customer/{customer}/points/redeem', [CustomerController::class, 'redeemPoints'])->name('customer.points.redeem');
 
