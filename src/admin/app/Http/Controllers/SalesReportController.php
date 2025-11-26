@@ -12,8 +12,7 @@ class SalesReportController extends Controller
      */
     public function index()
     {
-        $transactions = Transaction::with(['customer', 'vehicleType', 'soapType'])
-            ->orderBy('created_at', 'desc')
+        $transactions = Transaction::orderBy('created_at', 'desc')
             ->get();
 
         return view('sales_reports.sales_reports_table', [

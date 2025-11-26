@@ -507,6 +507,11 @@ class CustomerController extends Controller
 
             $customer = $checkout->customer;
             $vehicleTypeName = $checkout->vehicleType?->vehicle_type;
+
+            if ($checkout->vehicleType?->sub_title) {
+                $vehicleTypeName .= " ({$checkout->vehicleType?->sub_title})";
+            }
+
             $vehicleTypeAmount = $checkout->vehicleType ? round((float) $checkout->vehicleType->amount, 2) : null;
             $soapTypeName = $checkout->soapType?->soap_type;
             $soapTypeAmount = $checkout->soapType ? round((float) $checkout->soapType->amount, 2) : null;
@@ -539,10 +544,10 @@ class CustomerController extends Controller
                 'customer_id' => $checkout->customer_id,
                 'customer_name' => $customerName,
                 'vehicle_type_id' => $checkout->vehicle_type_id,
-                'vehicle_type' => $vehicleTypeName,
+                'vehicle_type_name' => $vehicleTypeName,
                 'vehicle_type_amount' => $vehicleTypeAmount,
                 'soap_type_id' => $checkout->soap_type_id,
-                'soap_type' => $soapTypeName,
+                'soap_type_name' => $soapTypeName,
                 'soap_type_amount' => $soapTypeAmount,
                 'total_amount' => $totalAmount,
                 'current_balance' => $currentBalance,

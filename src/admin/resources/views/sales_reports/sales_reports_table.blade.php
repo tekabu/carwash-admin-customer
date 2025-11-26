@@ -39,8 +39,11 @@
                 <tr>
                     <th class="customer">Customer</th>
                     <th class="vehicle_type">Vehicle Type</th>
+                    <th class="vehicle_type_price">Vehicle Type Price</th>
                     <th class="soap_type">Soap Type</th>
+                    <th class="soap_type_price">Soap Type Price</th>
                     <th class="is_guest">Guest</th>
+                    <th class="soap_type">Total Price</th>
                     <th class="created_at">Created At</th>
                 </tr>
             </thead>
@@ -85,17 +88,18 @@
 
         // Process data to add display values and raw fields for filtering
         var processedData = tableData.map(function(row) {
-            var customerName = row.is_guest ? 'Guest' : (row.customer ? row.customer.name : 'N/A');
-            var vehicleType = row.vehicle_type ? row.vehicle_type.vehicle_type : 'N/A';
-            var soapType = row.soap_type ? row.soap_type.soap_type : 'N/A';
+            var customerName = row.is_guest ? 'Guest' : row.customer_name;
 
             return {
                 customer_name: customerName,
                 customer_display: row.is_guest ? '<span class="badge bg-secondary">Guest</span>' : customerName,
-                vehicle_type: vehicleType,
-                soap_type: soapType,
+                vehicle_type: row.vehicle_type_name,
+                vehicle_type_price: row.vehicle_type_amount,
+                soap_type: row.soap_type_name,
+                soap_type_price: row.soap_type_amount,
                 is_guest_badge: row.is_guest ? '<span class="badge bg-warning">Yes</span>' : '<span class="badge bg-success">No</span>',
-                created_at: row.created_at
+                created_at: row.created_at,
+                total_price: row.total_amount
             };
         });
 
@@ -163,8 +167,16 @@
                     name: 'vehicle_type'
                 },
                 {
+                    data: 'vehicle_type_price',
+                    name: 'vehicle_type_price'
+                },
+                {
                     data: 'soap_type',
                     name: 'soap_type'
+                },
+                {
+                    data: 'soap_type_price',
+                    name: 'soap_type_price'
                 },
                 {
                     data: 'is_guest_badge',
@@ -172,6 +184,10 @@
                     className: 'text-center',
                     orderable: false,
                     searchable: false
+                },
+                {
+                    data: 'total_price',
+                    name: 'total_price'
                 },
                 {
                     data: 'created_at',
