@@ -51,7 +51,7 @@ Or run specific seeders:
 ```bash
 php artisan db:seed --class=CustomerSeeder
 php artisan db:seed --class=VehicleTypeSeeder
-php artisan db:seed --class=PackageTypeSeeder
+php artisan db:seed --class=SoapTypeSeeder
 php artisan db:seed --class=TransactionSeeder
 ```
 
