@@ -19,8 +19,8 @@
                 </select>
             </div>
             <div class="col-sm-6 col-md-3">
-                <label for="filter-package" class="form-label">Package Type</label>
-                <select id="filter-package" class="form-select form-select-sm">
+                <label for="filter-soap" class="form-label">Soap Type</label>
+                <select id="filter-soap" class="form-select form-select-sm">
                     <option value="">All</option>
                 </select>
             </div>
@@ -39,7 +39,7 @@
                 <tr>
                     <th class="customer">Customer</th>
                     <th class="vehicle_type">Vehicle Type</th>
-                    <th class="package_type">Package Type</th>
+                    <th class="soap_type">Soap Type</th>
                     <th class="is_guest">Guest</th>
                     <th class="created_at">Created At</th>
                 </tr>
@@ -87,13 +87,13 @@
         var processedData = tableData.map(function(row) {
             var customerName = row.is_guest ? 'Guest' : (row.customer ? row.customer.name : 'N/A');
             var vehicleType = row.vehicle_type ? row.vehicle_type.vehicle_type : 'N/A';
-            var packageType = row.package_type ? row.package_type.package_type : 'N/A';
+            var soapType = row.soap_type ? row.soap_type.soap_type : 'N/A';
 
             return {
                 customer_name: customerName,
                 customer_display: row.is_guest ? '<span class="badge bg-secondary">Guest</span>' : customerName,
                 vehicle_type: vehicleType,
-                package_type: packageType,
+                soap_type: soapType,
                 is_guest_badge: row.is_guest ? '<span class="badge bg-warning">Yes</span>' : '<span class="badge bg-success">No</span>',
                 created_at: row.created_at
             };
@@ -113,7 +113,7 @@
 
         populateFilter('#filter-customer', Array.from(new Set(processedData.map(function(row) { return row.customer_name; }))));
         populateFilter('#filter-vehicle', Array.from(new Set(processedData.map(function(row) { return row.vehicle_type; }))));
-        populateFilter('#filter-package', Array.from(new Set(processedData.map(function(row) { return row.package_type; }))));
+        populateFilter('#filter-soap', Array.from(new Set(processedData.map(function(row) { return row.soap_type; }))));
 
         var table;
 
@@ -163,8 +163,8 @@
                     name: 'vehicle_type'
                 },
                 {
-                    data: 'package_type',
-                    name: 'package_type'
+                    data: 'soap_type',
+                    name: 'soap_type'
                 },
                 {
                     data: 'is_guest_badge',
@@ -222,9 +222,9 @@
             table.column('vehicle_type:name').search(value ? '^' + escapeRegex(value) + '$' : '', true, false).draw();
         });
 
-        $('#filter-package').on('change', function() {
+        $('#filter-soap').on('change', function() {
             var value = $(this).val();
-            table.column('package_type:name').search(value ? '^' + escapeRegex(value) + '$' : '', true, false).draw();
+            table.column('soap_type:name').search(value ? '^' + escapeRegex(value) + '$' : '', true, false).draw();
         });
 
         $('#filter-date-from, #filter-date-to').on('change', function() {
