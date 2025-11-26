@@ -322,4 +322,61 @@ class CustomerController extends Controller
             ],
         ], 200);
     }
+
+    /**
+     * Redeem all customer points and convert to balance.
+     */
+    public function redeemPoints(Customer $customer)
+    {
+        $points = $customer->points ?? 0;
+
+        if ($points <= 0) {
+            return response()->json([
+                'status' => false,
+                'message' => 'No points available to redeem.',
+            ], 400);
+        }
+
+        // Get conversion ratio from .env (default to 1:1)
+        $conversionRatio = (int) env('POINTS_TO_BALANCE_RATIO', 1);
+
+        // Convert points to balance using whole numbers only
+        $balanceToAdd = (int) floor($points / $conversionRatio);
+
+        if ($balanceToAdd <= 0) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Insufficient points for conversion. Need at least ' . $conversionRatio . ' points.',
+            ], 400);
+        }
+
+        $oldBalance = $customer->balance ?? 0;
+        $oldPoints = $customer->points;
+
+        // Calculate points used and remaining points
+        $pointsUsed = $balanceToAdd * $conversionRatio;
+        $remainingPoints = $oldPoints - $pointsUsed;
+
+        // Update customer
+        $customer->balance = $oldBalance + $balanceToAdd;
+        $customer->points = $remainingPoints;
+        $customer->save();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Points redeemed successfully.',
+            'data' => [
+                'customer_id' => $customer->id,
+                'customer_name' => $customer->name,
+                'points_redeemed' => $pointsUsed,
+                'balance_added' => $balanceToAdd,
+                'old_balance' => $oldBalance,
+                'new_balance' => $customer->balance,
+                'old_points' => $oldPoints,
+                'new_points' => $customer->points,
+                'remaining_points' => $remainingPoints,
+                'conversion_ratio' => $conversionRatio,
+            ],
+        ], 200);
+    }
 }
