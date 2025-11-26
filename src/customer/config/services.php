@@ -36,7 +36,7 @@ return [
     ],
 
     'customer_top_up' => [
-        'url' => env('CUSTOMER_TOP_UP_URL'),
+        'url_template' => env('CUSTOMER_TOP_UP_URL'),
     ],
 
 ];
