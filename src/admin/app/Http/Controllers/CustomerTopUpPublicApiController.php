@@ -17,7 +17,7 @@ class CustomerTopUpPublicApiController extends Controller
         $validator = Validator::make($request->all(), [
             'proof_of_payment' => 'required|file|mimes:jpeg,jpg,png,pdf',
             'top_up_amount' => 'required|numeric|min:0.01',
-            'status' => 'nullable|in:Pending,Approved,Disapproved',
+            'status' => 'nullable|in:PENDING,APPROVED,DISAPPROVED',
             'remarks' => 'nullable|string|max:500',
         ]);
 
@@ -30,7 +30,7 @@ class CustomerTopUpPublicApiController extends Controller
         }
 
         $proofPath = $request->file('proof_of_payment')->store('customer/top-ups', 'public');
-        $status = $request->status ?? 'Pending';
+        $status = $request->status ?? 'PENDING';
 
         $topUp = CustomerTopUp::create([
             'customer_id' => $customer->id,

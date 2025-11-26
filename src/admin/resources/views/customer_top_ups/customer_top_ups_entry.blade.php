@@ -47,14 +47,14 @@
 
     @php
         $uuid_status = Str::uuid();
-        $statusOptions = ['Pending', 'Approved', 'Disapproved'];
+        $statusOptions = ['PENDING', 'APPROVED', 'DISAPPROVED'];
     @endphp
     <div class="mb-3">
         <div class="form-group">
             <label for="{{ $uuid_status }}" class="form-label">Status<span class="required"> *</span></label>
             <select id="{{ $uuid_status }}" name="status" class="form-select" required="required">
                 @foreach ($statusOptions as $status)
-                    <option value="{{ $status }}" @selected((isset($row) && $row->status === $status) || (!isset($row) && $status === 'Pending'))>{{ $status }}</option>
+                    <option value="{{ $status }}" @selected((isset($row) && $row->status === $status) || (!isset($row) && $status === 'PENDING'))>{{ $status }}</option>
                 @endforeach
             </select>
         </div>

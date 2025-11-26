@@ -52,7 +52,7 @@ class CustomerTopUpController extends Controller
             'customer_id' => 'required|exists:customers,id',
             'proof_of_payment' => 'required|file|mimes:jpeg,jpg,png,pdf',
             'top_up_amount' => 'required|numeric|min:0.01',
-            'status' => 'nullable|in:Pending,Approved,Disapproved',
+            'status' => 'nullable|in:PENDING,APPROVED,DISAPPROVED',
             'remarks' => 'nullable|string|max:500',
         ]);
 
@@ -69,7 +69,7 @@ class CustomerTopUpController extends Controller
         }
 
         $proofPath = $request->file('proof_of_payment')->store('customer/top-ups', 'public');
-        $status = $request->status ?? 'Pending';
+        $status = $request->status ?? 'PENDING';
 
         $topUp = CustomerTopUp::create([
             'customer_id' => $request->customer_id,
@@ -142,7 +142,7 @@ class CustomerTopUpController extends Controller
             'customer_id' => 'required|exists:customers,id',
             'proof_of_payment' => 'nullable|file|mimes:jpeg,jpg,png,pdf',
             'top_up_amount' => 'required|numeric|min:0.01',
-            'status' => 'required|in:Pending,Approved,Disapproved',
+            'status' => 'required|in:PENDING,APPROVED,DISAPPROVED',
             'remarks' => 'nullable|string|max:500',
         ]);
 

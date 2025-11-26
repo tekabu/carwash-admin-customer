@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('customer_id')->constrained()->cascadeOnDelete();
             $table->string('proof_of_payment'); // URL of the proof of payment receipt
-            $table->enum('status', ['PENDING', 'APPROVED', 'DISAPPROVED'])->default('Pending');
+            $table->enum('status', ['PENDING', 'APPROVED', 'DISAPPROVED'])->default('PENDING');
             $table->text('remarks')->nullable();
             $table->timestamps();
         });

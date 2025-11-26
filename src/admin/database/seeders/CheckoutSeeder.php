@@ -38,8 +38,8 @@ class CheckoutSeeder extends Seeder
         $ratio = (int) env('POINTS_TO_BALANCE_RATIO', 1);
 
         // Payment types
-        $paymentTypes = ['balance deduction', 'cash'];
-        $paymentStatuses = ['pending', 'done'];
+        $paymentTypes = ['BALANCE DEDUCTION', 'CASH'];
+        $paymentStatuses = ['PENDING', 'DONE'];
 
         // Create checkout records with random dates in 2025
         for ($i = 0; $i < $count; $i++) {
