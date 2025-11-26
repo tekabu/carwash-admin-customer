@@ -9,7 +9,7 @@ use App\Http\Controllers\CustomerTopUpController;
 use App\Http\Controllers\CustomerTopUpPublicApiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleTypeController;
-use App\Http\Controllers\PackageTypeController;
+use App\Http\Controllers\SoapTypeController;
 use App\Http\Controllers\SalesReportController;
 
 Route::post('api/customer-top-ups', [CustomerTopUpPublicApiController::class, 'store'])->name('customer-top-ups.api.store');
@@ -41,7 +41,7 @@ Route::middleware(['auth'])->group(function ()
     Route::resource('customer-top-ups', CustomerTopUpController::class);
     Route::resource('users', UserController::class);
     Route::resource('vehicle-types', VehicleTypeController::class);
-    Route::resource('package-types', PackageTypeController::class);
+    Route::resource('soap-types', SoapTypeController::class);
     Route::get('sales-reports', [SalesReportController::class, 'index'])->name('sales-reports.index');
 });
 
