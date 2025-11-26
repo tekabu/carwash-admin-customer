@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('customer_id')->nullable()->constrained()->nullOnDelete();
             $table->uuid('reference');
-            $table->string('vehicle_type');
-            $table->string('soap_type');
+            $table->foreignId('vehicle_type_id')->constrained('vehicle_types')->cascadeOnDelete();
+            $table->foreignId('soap_type_id')->constrained('soap_types')->cascadeOnDelete();
             $table->decimal('total_amount', 10, 2);
             $table->enum('payment_type', ['balance deduction', 'cash']);
             $table->enum('payment_status', ['pending', 'done'])->default('pending');

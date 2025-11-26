@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vehicle_types', function (Blueprint $table) {
+        Schema::create('soap_types', function (Blueprint $table) {
             $table->id();
-            $table->string('vehicle_type');
+            $table->string('soap_type')->unique();
             $table->string('sub_title')->nullable();
             $table->string('image_url')->nullable();
             $table->decimal('amount', 10, 2);
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vehicle_types');
+        Schema::dropIfExists('soap_types');
     }
 };
