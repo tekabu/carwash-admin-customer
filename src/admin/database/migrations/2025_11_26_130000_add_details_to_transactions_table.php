@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::table('transactions', function (Blueprint $table) {
             $table->string('customer_name')->nullable()->after('customer_id');
             $table->string('vehicle_type_name')->nullable()->after('vehicle_type_id');
-            $table->decimal('vehicle_type_amount', 10, 2)->nullable()->after('vehicle_type');
+            $table->decimal('vehicle_type_amount', 10, 2)->nullable()->after('vehicle_type_name');
             $table->string('soap_type_name')->nullable()->after('soap_type_id');
-            $table->decimal('soap_type_amount', 10, 2)->nullable()->after('soap_type');
+            $table->decimal('soap_type_amount', 10, 2)->nullable()->after('soap_type_name');
             $table->decimal('total_amount', 10, 2)->nullable()->after('soap_type_amount');
             $table->decimal('current_balance', 10, 2)->nullable()->after('total_amount');
             $table->decimal('new_balance', 10, 2)->nullable()->after('current_balance');
