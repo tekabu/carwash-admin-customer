@@ -79,7 +79,7 @@ class CustomerTopUpController extends Controller
             'remarks' => $request->remarks,
         ]);
 
-        if ($status === 'Approved') {
+        if ($status === 'APPROVED') {
             $topUp->creditCustomerBalance();
         }
 
@@ -103,9 +103,11 @@ class CustomerTopUpController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(CustomerTopUp $customerTopUp)
+    public function edit(CustomerTopUp $top_up)
     {
-        if ($customerTopUp->status === 'Approved') {
+        $customerTopUp = $top_up;
+
+        if ($customerTopUp->status === 'APPROVED') {
             return response()->json([
                 'status' => false,
                 'message' => 'Approved top-ups cannot be edited.',
@@ -128,9 +130,11 @@ class CustomerTopUpController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, CustomerTopUp $customerTopUp)
+    public function update(Request $request, CustomerTopUp $top_up)
     {
-        if ($customerTopUp->status === 'Approved') {
+        $customerTopUp = $top_up;
+
+        if ($customerTopUp->status === 'APPROVED') {
             return response()->json([
                 'status' => false,
                 'message' => 'Approved top-ups cannot be modified.',
@@ -168,7 +172,7 @@ class CustomerTopUpController extends Controller
             $customerTopUp->proof_of_payment = $proofPath;
         }
 
-        $shouldCredit = $request->status === 'Approved';
+        $shouldCredit = $request->status === 'APPROVED';
 
         $customerTopUp->customer_id = $request->customer_id;
         $customerTopUp->status = $request->status;
@@ -192,9 +196,11 @@ class CustomerTopUpController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CustomerTopUp $customerTopUp)
+    public function destroy(CustomerTopUp $top_up)
     {
-        if ($customerTopUp->status === 'Approved') {
+        $customerTopUp = $top_up;
+        
+        if ($customerTopUp->status === 'APPROVED') {
             return response()->json([
                 'status' => false,
                 'message' => 'Approved top-ups cannot be deleted.',
