@@ -15,32 +15,32 @@ class VehicleTypeSeeder extends Seeder
     {
         $vehicleTypes = [
             [
-                'vehicle_type' => 'Small Motorcycle',
-                'sub_title' => 'Compact bikes and scooters',
+                'vehicle_type' => 'SMALL 1',
+                'sub_title' => 'Motorcycle',
                 'image_url' => null,
                 'amount' => 50.00,
             ],
             [
-                'vehicle_type' => 'Small Sedan',
-                'sub_title' => 'Compact and mid-size cars',
+                'vehicle_type' => 'SMALL 2',
+                'sub_title' => 'Sedan',
                 'image_url' => null,
                 'amount' => 75.00,
             ],
             [
-                'vehicle_type' => 'Medium Suv',
-                'sub_title' => 'SUVs and crossovers',
+                'vehicle_type' => 'MEDIUM 1',
+                'sub_title' => 'SUV',
                 'image_url' => null,
                 'amount' => 100.00,
             ],
             [
-                'vehicle_type' => 'Medium Pickup',
-                'sub_title' => 'Standard pickup trucks',
+                'vehicle_type' => 'MEDIUM 2',
+                'sub_title' => 'Pickup',
                 'image_url' => null,
                 'amount' => 100.00,
             ],
             [
-                'vehicle_type' => 'Large Van',
-                'sub_title' => 'Vans and large vehicles',
+                'vehicle_type' => 'LARGE',
+                'sub_title' => 'Van',
                 'image_url' => null,
                 'amount' => 150.00,
             ],

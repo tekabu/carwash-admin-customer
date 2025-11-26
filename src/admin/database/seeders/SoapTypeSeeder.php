@@ -16,13 +16,13 @@ class SoapTypeSeeder extends Seeder
         $soapTypes = [
             [
                 'soap_type' => 'Basic',
-                'sub_title' => 'Standard wash soap',
+                'sub_title' => '',
                 'image_url' => null,
                 'amount' => 50.00,
             ],
             [
                 'soap_type' => 'Premium',
-                'sub_title' => 'Premium quality soap with wax',
+                'sub_title' => '',
                 'image_url' => null,
                 'amount' => 100.00,
             ],
