@@ -22,6 +22,8 @@ composer update
 
 **Note:** Make sure to configure your `.env` file with your database connection settings. This admin panel shares the same database with the customer portal.
 
+Set `TELESCOPE_ENABLED=false` in environments where you don't want to expose the Telescope dashboard. It defaults to `true` for local development. When Telescope is enabled outside of `local`, make sure the admin session login page is reachable because Telescope now requires an authenticated web session before loading. Use `TELESCOPE_AUTH_GUARD` (default `web`) and `TELESCOPE_LOGIN_ROUTE` (default `login`) if you need to point Telescope at a custom guard or login route.
+
 ### 3. Generate Application Key
 
 Generate a new application key:
