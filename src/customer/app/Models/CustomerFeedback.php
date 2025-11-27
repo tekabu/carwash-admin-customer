@@ -16,3 +16,4 @@ class CustomerFeedback extends Model
         'message',
     ];
 }
+

@@ -17,7 +17,21 @@
                     <p>It is a long established fact that a reader will be distracted by the readable
                         content of a page randomised words which don't look even slightly when looking at its layout. </p>
                 </div>
-                <form method="post" action="#" id="contact-form">
+                @if (session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <form method="post" action="{{ route('contact.submit') }}" id="contact-form">
                     @csrf
                     <div class="row">
                         <div class="col-md-6">
@@ -37,11 +51,11 @@
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control" name="subject"
-                            placeholder="Your Subject" required>
+                            placeholder="Your Subject" value="{{ old('subject') }}" required>
                     </div>
                     <div class="form-group">
                         <textarea name="message" cols="30" rows="5" class="form-control"
-                            placeholder="Write Your Message"></textarea>
+                            placeholder="Write Your Message" required>{{ old('message') }}</textarea>
                     </div>
                     <button type="submit" class="theme-btn">Send
                         Message <i class="far fa-paper-plane"></i></button>
