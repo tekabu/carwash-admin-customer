@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\CustomerFeedbackController;
 use App\Http\Controllers\CustomerTopUpController;
 use App\Http\Controllers\CustomerTopUpPublicApiController;
 use App\Http\Controllers\UserController;
@@ -63,6 +64,7 @@ Route::middleware(['auth'])->group(function ()
     Route::resource('vehicle-types', VehicleTypeController::class);
     Route::resource('soap-types', SoapTypeController::class);
     Route::get('sales-reports', [SalesReportController::class, 'index'])->name('sales-reports.index');
+    Route::get('customer-feedbacks', [CustomerFeedbackController::class, 'index'])->name('customer-feedbacks.index');
 });
 
 // Route::middleware(['guest'])->group(function () {

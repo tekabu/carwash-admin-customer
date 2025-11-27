@@ -68,6 +68,12 @@
                         <span>Sales Report</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('customer-feedbacks.index') }}" class="nav-link {{ request()->routeIs('customer-feedbacks.index') ? 'active' : '' }}">
+                        <i class="ph-envelope"></i>
+                        <span>Customer Feedbacks</span>
+                    </a>
+                </li>
 
             </ul>
         </div>
