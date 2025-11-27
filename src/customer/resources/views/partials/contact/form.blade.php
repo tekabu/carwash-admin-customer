@@ -1,4 +1,8 @@
 <!-- contact form -->
+@php
+    $currentUser = auth()->user();
+@endphp
+
 <div class="contact-wrapper">
     <div class="row">
         <div class="col-lg-6 align-self-center">
@@ -19,13 +23,15 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <input type="text" class="form-control" name="name"
-                                    placeholder="Your Name" required>
+                                    placeholder="Your Name" value="{{ old('name', $currentUser?->name) }}"
+                                    @if($currentUser) readonly @endif required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <input type="email" class="form-control" name="email"
-                                    placeholder="Your Email" required>
+                                    placeholder="Your Email" value="{{ old('email', $currentUser?->email) }}"
+                                    @if($currentUser) readonly @endif required>
                             </div>
                         </div>
                     </div>
