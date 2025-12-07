@@ -7,12 +7,12 @@
 @section('content')
 
 <!-- top up area -->
-<div class="login-area py-120">
+<div class="topup-history-area py-120">
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <div class="login-form">
-                    <div class="login-header">
+                <div class="topup-history--form">
+                    <div class="topup-history-header">
                         <h2>Top Up Balance</h2>
                         <p>Upload your proof of payment to request a manual top up.</p>
                     </div>
@@ -56,7 +56,7 @@
 
                     <hr class="my-5">
 
-                    <div class="login-header">
+                    <div class="topup-history-header">
                         <h2>Top Up History</h2>
                         <p>Review your submission records</p>
                     </div>

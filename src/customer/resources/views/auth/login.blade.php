@@ -12,7 +12,7 @@
         <div class="col-md-5 mx-auto">
             <div class="login-form">
                 <div class="login-header">
-                    <img src="{{ asset('assets/img/logo/logo.png') }}" alt="">
+                    <img src="{{ asset('assets/img/logo/my-account-logo.png') }}" alt="">
                     <p>Login with your carwash account</p>
                 </div>
 

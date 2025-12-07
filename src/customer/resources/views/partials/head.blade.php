@@ -4,9 +4,9 @@
 <meta name="description" content="@yield('meta_description', '')">
 <meta name="keywords" content="@yield('meta_keywords', '')">
 
-<title>@yield('title', 'Carwash - Car Washing Services')</title>
+<title>@yield('title', 'Classy Kars')</title>
 
-<link rel="icon" type="image/x-icon" href="{{ asset('assets/img/logo/favicon.png') }}">
+<link rel="icon" type="image/x-icon" href="{{ asset('assets/img/logo/classy-icon.png') }}">
 
 <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/all-fontawesome.min.css') }}">

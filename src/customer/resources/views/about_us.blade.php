@@ -10,6 +10,10 @@
 
 @section('content')
 
-    @include('partials.home.about')
+    @include('partials.home.story')
+
+     @include('partials.home.time-line')
+
+    @include('partials.home.faq')
 
 @endsection

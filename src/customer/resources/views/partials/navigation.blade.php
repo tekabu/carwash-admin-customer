@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
-                <img src="{{ asset('assets/img/logo/logo.png') }}" alt="logo">
+                <img src="{{ asset('assets/img/logo/ck-logo.png') }}" alt="logo">
             </a>
             <div class="mobile-menu-right">
                 <div class="mobile-menu-list">
