@@ -1,149 +1,237 @@
-<!-- service-area -->
-<div class="service-area service-bg py-120">
+<div class="service-wrapper">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-6 mx-auto">
-                <div class="site-heading text-center">
-                    <span class="site-title-tagline">Services</span>
-                    <h2 class="site-title">What We <span>Offer</span></h2>
-                    <div class="heading-divider"></div>
-                </div>
-            </div>
+        <div class="text-center mb-5">
+            <span class="site-title-tagline">Services & Pricing</span>
+            <h2 class="site-title">Choose Your <span>Service</span></h2>
+            <div class="heading-divider"></div>
         </div>
-        <div class="row mt-4">
-            <div class="col-md-6 col-lg-4">
-                <div class="service-item">
-                    <div class="service-img">
-                        <img src="{{ asset('publicx/assets/img/service/01.jpg') }}" alt="">
-                    </div>
-                    <div class="service-icon">
-                        <i class="icon-car-service-2"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3 class="service-title">
-                            <a href="#">Auto Detailing</a>
-                        </h3>
-                        <p class="service-text">
-                            There are many variations of passages orem psum available but the majority have
-                            suffered alteration in some form by injected.
-                        </p>
-                        <div class="service-arrow">
-                            <a href="#" class="theme-btn">Read More <i class="far fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
+
+        <div class="service-tabs">
+
+            <!-- LEFT TABS -->
+            <div class="service-tab-list">
+                <button class="active" onclick="showService('basic')"><i class="fa fa-car"></i> Basic Car Wash</button>
+                <button onclick="showService('premium')"><i class="fa fa-star"></i> Premium Car Wash</button>
+                <button onclick="showService('doublewax')"><i class="fa fa-gem"></i> Double Wax + Premium</button>
+                <button onclick="showService('engine')"><i class="fa fa-cogs"></i> Engine Wash</button>
+                <button onclick="showService('bac2zero')"><i class="fa fa-shield-virus"></i> Bac-to-zero</button>
+                <button onclick="showService('underwash')"><i class="fa fa-water"></i> Underwash</button>
+                <button onclick="showService('asphalt')"><i class="fa fa-tools"></i> Asphalt Removal</button>
+                <button onclick="showService('buffing')"><i class="fa fa-brush"></i> Machine Buffing Wax</button>
+                <button onclick="showService('interior')"><i class="fa fa-spray-can"></i> Interior Protectant</button>
             </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="service-item">
-                    <div class="service-img">
-                        <img src="{{ asset('publicx/assets/img/service/02.jpg') }}" alt="">
-                    </div>
-                    <div class="service-icon">
-                        <i class="icon-car"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3 class="service-title">
-                            <a href="#">Express Exterior</a>
-                        </h3>
-                        <p class="service-text">
-                            There are many variations of passages orem psum available but the majority have
-                            suffered alteration in some form by injected.
+
+            <!-- RIGHT CONTENT DEFAULT -->
+           <div class="service-content-box" id="serviceContent">
+                <img src="{{ asset('publicx/assets/img/logo/classy-icon.png') }}" class="service-img-preview" alt="Carwash Preview">
+
+                                <!-- Vision & Mission Section -->
+                <div class="vision-mission-section" style="background: #f8f9fa; padding: 80px 20px; text-align: left;">
+
+                    <!-- Vision -->
+                    <div class="vision" style="margin-bottom: 50px;">
+                        <h3 style="font-size: 28px; color: #00b33c;">Vision</h3>
+                        <p style="max-width: 700px; margin: 10px auto; font-size: 18px; line-height: 1.6; color: #555;">
+                            To be the leading car care provider known for innovative, eco-friendly, and premium-quality services that consistently exceed customer expectations.
                         </p>
-                        <div class="service-arrow">
-                            <a href="#" class="theme-btn">Read More <i class="far fa-arrow-right"></i></a>
-                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="service-item">
-                    <div class="service-img">
-                        <img src="{{ asset('publicx/assets/img/service/03.jpg') }}" alt="">
-                    </div>
-                    <div class="service-icon">
-                        <i class="icon-tire"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3 class="service-title">
-                            <a href="#">Full Tire Wash</a>
-                        </h3>
-                        <p class="service-text">
-                            There are many variations of passages orem psum available but the majority have
-                            suffered alteration in some form by injected.
+
+                    <!-- Mission -->
+                    <div class="mission">
+                        <h3 style="font-size: 28px; color: #00b33c;">Mission</h3>
+                        <p style="max-width: 700px; margin: 10px auto; font-size: 18px; line-height: 1.6; color: #555;">
+                            Ensure every vehicle leaves our facility spotless, protected, and shining, while building lasting relationships with our customers.
                         </p>
-                        <div class="service-arrow">
-                            <a href="#" class="theme-btn">Read More <i class="far fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="service-item">
-                    <div class="service-img">
-                        <img src="{{ asset('publicx/assets/img/service/04.jpg') }}" alt="">
-                    </div>
-                    <div class="service-icon">
-                        <i class="icon-car-wash-2"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3 class="service-title">
-                            <a href="#">Full Car Wash</a>
-                        </h3>
-                        <p class="service-text">
-                            There are many variations of passages orem psum available but the majority have
-                            suffered alteration in some form by injected.
-                        </p>
-                        <div class="service-arrow">
-                            <a href="#" class="theme-btn">Read More <i class="far fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="service-item">
-                    <div class="service-img">
-                        <img src="{{ asset('publicx/assets/img/service/05.jpg') }}" alt="">
-                    </div>
-                    <div class="service-icon">
-                        <i class="icon-polish"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3 class="service-title">
-                            <a href="#">Interior Polish</a>
-                        </h3>
-                        <p class="service-text">
-                            There are many variations of passages orem psum available but the majority have
-                            suffered alteration in some form by injected.
-                        </p>
-                        <div class="service-arrow">
-                            <a href="#" class="theme-btn">Read More <i class="far fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="service-item">
-                    <div class="service-img">
-                        <img src="{{ asset('publicx/assets/img/service/06.jpg') }}" alt="">
-                    </div>
-                    <div class="service-icon">
-                        <i class="icon-vacuum-cleaner"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3 class="service-title">
-                            <a href="#">Engine Wash</a>
-                        </h3>
-                        <p class="service-text">
-                            There are many variations of passages orem psum available but the majority have
-                            suffered alteration in some form by injected.
-                        </p>
-                        <div class="service-arrow">
-                            <a href="#" class="theme-btn">Read More <i class="far fa-arrow-right"></i></a>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- service-area end -->
+
+<script>
+const services = {
+    basic: {
+        img: "carwash.png",
+        title: "Basic Car Wash",
+        desc: "A quick and efficient exterior wash that removes dust and surface dirt.",
+        prices: [["Small (Sedan & Hatchbacks)","₱140"],["Medium (Crossover & Small SUVs)","₱180"],["Large (SUV & Big MPVs)","₱220"], ["XLarge (Van & Pick-up)","₱260"]]
+    },
+    premium: { img:"ceramic.png", title:"Premium Car Wash", desc:"A deeper, more detailed wash for a shinier finish.", prices: [["Small (Sedan & Hatchbacks)","₱240"],["Medium (Crossover & Small SUVs)","₱290"],["Large (SUV & Big MPVs)","₱340"], ["XLarge (Van & Pick-up)","₱390"]] },
+    doublewax: { img:"graphene.png", title:"Double Wax with Premium Wash", desc:"Premium wash + double-layer waxing for longer-lasting shine.", prices: [["Small (Sedan & Hatchbacks)","₱460"],["Medium (Crossover & Small SUVs)","₱570"],["Large (SUV & Big MPVs)","₱680"], ["XLarge (Van & Pick-up)","₱790"]] },
+    engine: { img:"engine-wash.jpg", title:"Engine Wash", desc:"Degreasing of engine bay for a clean finish.", prices: [["Small (Sedan & Hatchbacks)","₱350"],["Medium (Crossover & Small SUVs)","₱350"],["Large (SUV & Big MPVs)","₱400"], ["XLarge (Van & Pick-up)","₱400"]]},
+    bac2zero: { img:"bac-to-zer.jpg", title:"Bac-to-zero", desc:"Disinfection treatment for odor and bacteria removal.", prices: [["Small (Sedan & Hatchbacks)","₱380"],["Medium (Crossover & Small SUVs)","₱380"],["Large (SUV & Big MPVs)","₱430"], ["XLarge (Van & Pick-up)","₱430"]] },
+    underwash: { img:"underwash.jpg", title:"Underwash", desc:"Underbody cleaning for rust prevention.", prices: [["Small (Sedan & Hatchbacks)","₱340"],["Medium (Crossover & Small SUVs)","₱390"],["Large (SUV & Big MPVs)","₱490"], ["XLarge (Van & Pick-up)","₱550"]] },
+    asphalt: { img:"asphalt.png", title:"Asphalt Removal", desc:"Removes stubborn tar safely.", prices: [["Small (Sedan & Hatchbacks)","₱100"],["Medium (Crossover & Small SUVs)","₱100"],["Large (SUV & Big MPVs)","₱150"], ["XLarge (Van & Pick-up)","₱150"]] },
+    buffing: { img:"buffing.jpg", title:"Machine Buffing Wax", desc:"Removes light scratches and oxidation.", prices: [["Small (Sedan & Hatchbacks)","₱200"],["Medium (Crossover & Small SUVs)","₱250"],["Large (SUV & Big MPVs)","₱300"], ["XLarge (Van & Pick-up)","₱350"]] },
+    interior: { img:"detailing.png", title:"Interior Protectant", desc:"Protects interior from UV damage.", prices: [["Small (Sedan & Hatchbacks)","₱120"],["Medium (Crossover & Small SUVs)","₱120"],["Large (SUV & Big MPVs)","₱200"], ["XLarge (Van & Pick-up)","₱250"]] }
+};
+
+function showService(key) {
+    const content = document.getElementById("serviceContent");
+    const s = services[key];
+
+    // Set active button
+    document.querySelectorAll(".service-tab-list button")
+        .forEach(btn => btn.classList.remove("active"));
+    event.target.classList.add("active");
+
+    // Fade animation refresh
+    content.classList.remove("fadeSlide");
+    void content.offsetWidth;
+    content.classList.add("fadeSlide");
+
+    // Replace content
+    content.innerHTML = `
+        <img src="{{ asset('publicx/assets/img/service/${s.img}') }}" class="service-img-preview">
+        <h3>${s.title}</h3>
+        <p>${s.desc}</p>
+        <div class="price-list">
+            ${s.prices.map(p => `
+                <div class="price-item">
+                    <span>${p[0]}</span>
+                    <span class="price-value">${p[1]}</span>
+                </div>
+            `).join("")}
+        </div>
+    `;
+}
+</script>
+
+<style>
+/* ========================================
+   Premium Responsive Tab-based Services
+========================================= */
+
+/* WRAPPER */
+.service-wrapper {
+    background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 80px 0;
+}
+
+/* Layout desktop */
+.service-tabs {
+    display: flex;
+    gap: 30px;
+}
+
+/* LEFT TAB LIST */
+.service-tab-list {
+    width: 28%;
+    background: rgba(255,255,255,0.85);
+    padding: 25px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.service-tab-list button {
+    width: 100%;
+    text-align: left;
+    padding: 15px 20px;
+    background: #fff;
+    border: 2px solid #e8e8e8;
+    border-radius: 14px;
+    margin-bottom: 12px;
+    font-weight: 600;
+    color: #333;
+    transition: 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+.service-tab-list button i {
+    font-size: 18px;
+    color: #00b33c;
+}
+.service-tab-list button::before {
+    content: "";
+    position: absolute;
+    left: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 0%;
+    background: #00b33c;
+    border-radius: 10px;
+    transition: 0.25s ease;
+}
+.service-tab-list button:hover,
+.service-tab-list button.active {
+    border-color: #00b33c;
+    background: rgba(0,179,60,0.1);
+    color: #00b33c;
+    transform: translateX(3px);
+}
+.service-tab-list button:hover::before,
+.service-tab-list button.active::before { height: 70%; }
+
+/* RIGHT CONTENT */
+.service-content-box {
+    width: 72%;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    animation: fadeSlide .35s ease-out;
+    transition: transform 0.3s ease;
+}
+.service-content-box:hover { transform: translateY(-4px); }
+
+@keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.service-img-preview {
+    width: 100%;
+    height: 300px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.08);
+    object-fit: cover;
+}
+
+.price-list { margin-top: 25px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 15px; }
+
+.price-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.03);
+    transition: background 0.3s ease;
+}
+.price-item:hover {
+    background: rgba(0,179,60,0.05);
+    border-radius: 10px;
+}
+.price-value {
+    color: #00b33c;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 992px) {
+    .service-tabs { flex-direction: column; }
+    .service-tab-list { width: 100%; padding: 15px; display: flex; gap: 10px; overflow-x: auto; border-radius: 16px; white-space: nowrap; }
+    .service-tab-list button { width: auto; flex-shrink: 0; padding: 12px 18px; border-radius: 50px; border-width: 1.5px; font-size: 14px; margin-bottom: 0; }
+    .service-tab-list button::before { display: none; }
+    .service-tab-list button.active { background: #00b33c; color: #fff; border-color: #00b33c; transform: scale(1.03); }
+    .service-tab-list button i { color: #fff !important; }
+    .service-content-box { width: 100%; padding: 30px 25px; margin-top: 15px; border-radius: 18px; }
+    .price-item { font-size: 15px; padding: 12px 0; }
+}
+
+@media (max-width: 480px) {
+    .service-tab-list { gap: 6px; }
+    .service-tab-list button { font-size: 13px; padding: 10px 14px; }
+    .service-content-box { padding: 22px; }
+    .price-item { font-size: 14px; }
+    .price-value { font-size: 15px; }
+}
+</style>

@@ -6,10 +6,9 @@
                 <div class="choose-content">
                     <div class="site-heading">
                         <span class="site-title-tagline text-white">Why Choose Us</span>
-                        <h2 class="site-title text-white mb-10">We are dedicated <span>to provide</span> quality service</h2>
+                        <h2 class="site-title text-white mb-10">We are dedicated <span>to providing</span> premium car care</h2>
                         <p class="text-white">
-                            It is a long established fact that a reader will be distracted by the readable
-                            content of a page when looking at its layout.
+                            At Classy Kars Carwash, we don’t just clean cars, we care for them. With advanced cleaning technology and a commitment to excellence, we ensure every vehicle leaves our shop spotless, shiny, and protected.
                         </p>
                     </div>
                     <div class="choose-content-wrapper">
@@ -18,9 +17,8 @@
                                 <i class="icon-brush"></i>
                             </div>
                             <div class="choose-item-info">
-                                <h3>Natural Cleaners</h3>
-                                <p>There are many variations of passages of Lorem Ipsum available but the
-                                    majority have suffered alteration.</p>
+                                <h3>Eco-Friendly Cleaning</h3>
+                                <p>We use high-quality, eco-safe cleaning products to give your car a deep clean without harming the environment.</p>
                             </div>
                         </div>
                         <div class="choose-item">
@@ -28,9 +26,8 @@
                                 <i class="icon-seat"></i>
                             </div>
                             <div class="choose-item-info">
-                                <h3>Customer Focused</h3>
-                                <p>There are many variations of passages of Lorem Ipsum available but the
-                                    majority have suffered alteration.</p>
+                                <h3>Customer-Centered Service</h3>
+                                <p>Your satisfaction drives us. Our friendly and skilled team ensures your experience is fast, smooth, and worry-free.</p>
                             </div>
                         </div>
                         <div class="choose-item">
@@ -38,23 +35,23 @@
                                 <i class="icon-polish"></i>
                             </div>
                             <div class="choose-item-info">
-                                <h3>Interior Washing</h3>
-                                <p>There are many variations of passages of Lorem Ipsum available but the
-                                    majority have suffered alteration.</p>
+                                <h3>Professional Detailing</h3>
+                                <p>From interior care to paint protection, our detailing experts bring back your car’s showroom shine with precision and care.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+              
+            <!-- Image Section -->
             <div class="col-lg-6">
                 <div class="choose-img">
-                    <div class="video-wrapper">
-                        <a class="play-btn popup-youtube" href="https://www.youtube.com/watch?v=ckHzmP1evNU">
-                            <i class="fas fa-play"></i>
-                        </a>
-                    </div>
+                    <img src="after2.png" alt="" class="img-fluid rounded">
                 </div>
             </div>
+            <!-- End Image Section -->
+
         </div>
     </div>
 </div>

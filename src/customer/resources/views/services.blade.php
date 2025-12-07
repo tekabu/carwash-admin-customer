@@ -12,4 +12,8 @@
 
     @include('partials.home.services')
 
+     @include('partials.home.promotion')
+
+    @include('partials.home.portfolio')
+
 @endsection

@@ -13,10 +13,10 @@
         <div class="portfolio-slider owl-carousel owl-theme popup-gallery">
             <div class="portfolio-item">
                 <div class="portfolio-img">
-                    <img src="{{ asset('publicx/assets/img/portfolio/01.jpg') }}" alt="">
+                    <img src="{{ asset('publicx/assets/img/portfolio/port7.jpg') }}" alt="">
                 </div>
                 <div class="portfolio-content">
-                    <a class="popup-img portfolio-link" href="{{ asset('publicx/assets/img/portfolio/01.jpg') }}"><i
+                    <a class="popup-img portfolio-link" href="{{ asset('publicx/assets/img/portfolio/port7.jpg') }}"><i
                             class="far fa-plus"></i></a>
                     <div class="portfolio-info">
                         <h5 class="portfolio-subtitle"><span>//</span> Car Wash</h5>
@@ -28,10 +28,10 @@
             </div>
             <div class="portfolio-item">
                 <div class="portfolio-img">
-                    <img src="{{ asset('publicx/assets/img/portfolio/02.jpg') }}" alt="">
+                    <img src="{{ asset('publicx/assets/img/portfolio/port9.jpg') }}" alt="">
                 </div>
                 <div class="portfolio-content">
-                    <a class="popup-img portfolio-link" href="{{ asset('publicx/assets/img/portfolio/02.jpg') }}"><i
+                    <a class="popup-img portfolio-link" href="{{ asset('publicx/assets/img/portfolio/port9.jpg') }}"><i
                             class="far fa-plus"></i></a>
                     <div class="portfolio-info">
                         <h5 class="portfolio-subtitle"><span>//</span> Car Wash</h5>
@@ -43,10 +43,10 @@
             </div>
             <div class="portfolio-item">
                 <div class="portfolio-img">
-                    <img src="{{ asset('publicx/assets/img/portfolio/03.jpg') }}" alt="">
+                    <img src="{{ asset('publicx/assets/img/portfolio/car6.jpg') }}" alt="">
                 </div>
                 <div class="portfolio-content">
-                    <a class="popup-img portfolio-link" href="{{ asset('publicx/assets/img/portfolio/03.jpg') }}"><i
+                    <a class="popup-img portfolio-link" href="{{ asset('publicx/assets/img/portfolio/car6.jpg') }}"><i
                             class="far fa-plus"></i></a>
                     <div class="portfolio-info">
                         <h5 class="portfolio-subtitle"><span>//</span> Car Wash</h5>
@@ -58,10 +58,10 @@
             </div>
             <div class="portfolio-item">
                 <div class="portfolio-img">
-                    <img src="{{ asset('publicx/assets/img/portfolio/04.jpg') }}" alt="">
+                    <img src="{{ asset('publicx/assets/img/portfolio/car2.jpg') }}" alt="">
                 </div>
                 <div class="portfolio-content">
-                    <a class="popup-img portfolio-link" href="{{ asset('publicx/assets/img/portfolio/04.jpg') }}"><i
+                    <a class="popup-img portfolio-link" href="{{ asset('publicx/assets/img/portfolio/car2.jpg') }}"><i
                             class="far fa-plus"></i></a>
                     <div class="portfolio-info">
                         <h5 class="portfolio-subtitle"><span>//</span> Car Wash</h5>
@@ -73,10 +73,10 @@
             </div>
             <div class="portfolio-item">
                 <div class="portfolio-img">
-                    <img src="{{ asset('publicx/assets/img/portfolio/05.jpg') }}" alt="">
+                    <img src="{{ asset('publicx/assets/img/portfolio/port3.jpg') }}" alt="">
                 </div>
                 <div class="portfolio-content">
-                    <a class="popup-img portfolio-link" href="{{ asset('publicx/assets/img/portfolio/05.jpg') }}"><i
+                    <a class="popup-img portfolio-link" href="{{ asset('publicx/assets/img/portfolio/port3.jpg') }}"><i
                             class="far fa-plus"></i></a>
                     <div class="portfolio-info">
                         <h5 class="portfolio-subtitle"><span>//</span> Car Wash</h5>
@@ -88,10 +88,10 @@
             </div>
             <div class="portfolio-item">
                 <div class="portfolio-img">
-                    <img src="{{ asset('publicx/assets/img/portfolio/06.jpg') }}" alt="">
+                    <img src="{{ asset('publicx/assets/img/portfolio/port10.jpg') }}" alt="">
                 </div>
                 <div class="portfolio-content">
-                    <a class="popup-img portfolio-link" href="{{ asset('publicx/assets/img/portfolio/06.jpg') }}"><i
+                    <a class="popup-img portfolio-link" href="{{ asset('publicx/assets/img/portfolio/port10.jpg') }}"><i
                             class="far fa-plus"></i></a>
                     <div class="portfolio-info">
                         <h5 class="portfolio-subtitle"><span>//</span> Car Wash</h5>
