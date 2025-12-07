@@ -25,7 +25,7 @@
         </div>
     </div>
 
-    @php
+    <!-- @php
         $uuid_password = Str::uuid();
     @endphp
     <div class="mb-3">
@@ -53,7 +53,7 @@
             </label>
             <input id="{{ $uuid_password_confirmation }}" name="password_confirmation" placeholder="Confirm Password" required="required" type="password" class="form-control">
         </div>
-    </div>
+    </div> -->
 
     @php
         $uuid_phone = Str::uuid();

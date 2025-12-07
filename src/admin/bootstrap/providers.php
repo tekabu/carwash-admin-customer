@@ -1,11 +1,7 @@
 <?php
 
-$providers = [
+return [
     App\Providers\AppServiceProvider::class,
+    App\Providers\TelescopeDashboardServiceProvider::class,
+    App\Providers\TelescopeServiceProvider::class,
 ];
-
-if (env('TELESCOPE_ENABLED', env('APP_ENV') === 'local')) {
-    $providers[] = App\Providers\TelescopeDashboardServiceProvider::class;
-}
-
-return $providers;

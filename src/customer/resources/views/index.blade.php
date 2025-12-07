@@ -12,7 +12,7 @@
     <meta name="keywords" content="">
 
     <!-- title -->
-    <title>Carwash - Car Washing Services HTML5 Template</title>
+    <title>Classy Kars</title>
 
     <!-- favicon -->
     <link rel="icon" type="image/x-icon" href="assets/img/logo/favicon.png">

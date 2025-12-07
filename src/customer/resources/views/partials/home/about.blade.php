@@ -5,12 +5,12 @@
             <div class="col-lg-6 d-flex align-items-center justify-content-center">
                 <div class="about-left">
                     <div class="about-img">
-                        <img class="about-img-1" src="{{ asset('publicx/assets/img/about/01.jpg') }}" alt="">
+                        <img class="about-img-1" src="{{ asset('publicx/assets/img/about/car-2.png') }}" alt="">
                     </div>
                     <div class="about-shape"><img src="{{ asset('publicx/assets/img/shape/02.png') }}" alt=""></div>
                     <div class="about-experience">
                         <i class="icon-car-service-4"></i>
-                        <b>30 Years Of <br> Quality Service</b>
+                        <b>Years Of <br> Quality Service</b>
                     </div>
                 </div>
             </div>
@@ -19,28 +19,28 @@
                     <div class="site-heading mb-3">
                         <span class="site-title-tagline">About Us</span>
                         <h2 class="site-title">
-                            We Provide Quality <span>Car Washing</span> Services
+                           We Provide Trusted <span>Car Washing</span> Services
                         </h2>
                     </div>
                     <p class="about-text">
-                        There are many variations of passages of Lorem Ipsum available, but the majority have
-                        suffered alteration in some form, by injected humour, or randomised words which don't
-                        look even slightly believable.
+                        Classy Kars Carwash has been proudly serving our community for the past 2 years, delivering spotless, reliable, 
+                        and professional car care. Our team is dedicated to keeping every vehicle shining 
+                        and protected, using the latest technology and eco-friendly products.
                     </p>
                     <div class="about-list-wrapper">
                         <ul class="about-list list-unstyled">
                             <li>
-                                At vero eos et accusamus et iusto odio
+                                Experienced staff ensuring careful and thorough cleaning
                             </li>
                             <li>
-                                Established fact that a reader will be distracted
+                                Premium services that fit every type of vehicle
                             </li>
                             <li>
-                                Sed ut perspiciatis unde omnis iste natus sit
+                                A commitment to customer satisfaction and attention to detail
                             </li>
                         </ul>
                     </div>
-                    <a href="#" class="theme-btn mt-4">Discover More <i
+                    <a href="{{ route('about-us') }}" class="theme-btn mt-4">Discover More <i
                             class="far fa-arrow-right"></i></a>
                 </div>
             </div>

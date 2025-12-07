@@ -13,10 +13,10 @@
                 </div>
                 <div class="col-lg-5 text-center text-lg-end">
                     <div class="mb-20">
-                        <a href="#" class="cta-number"><i class="fas fa-headphones"></i>+2 123 654 7898</a>
+                        <a href="#" class="cta-number"><i class="fas fa-phone"></i>0927-736-5832</a>
                     </div>
                     <div class="cta-btn">
-                        <a href="#" class="theme-btn">Order Now <i class="far fa-arrow-right"></i></a>
+                        <!-- <a href="#" class="theme-btn">Order Now <i class="far fa-arrow-right"></i></a> -->
                     </div>
                 </div>
             </div>
