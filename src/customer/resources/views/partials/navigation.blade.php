@@ -5,9 +5,6 @@
                 <img src="{{ asset('assets/img/logo/ck-logo.png') }}" alt="logo">
             </a>
             <div class="mobile-menu-right">
-                <div class="mobile-menu-list">
-                    <a href="#" class="mobile-menu-link search-box-outer"><i class="far fa-search"></i></a>
-                </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#main_nav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"><i class="far fa-stream"></i></span>

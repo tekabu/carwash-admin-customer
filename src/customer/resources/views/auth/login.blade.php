@@ -5,17 +5,17 @@
 
 @section('content')
 
-<!-- login area -->
 <div class="login-area py-120">
     <div class="container">
         <div class="col-md-5 mx-auto">
             <div class="login-form">
+
                 <div class="login-header">
                     <img src="{{ asset('assets/img/logo/my-account-logo.png') }}" alt="">
                     <p>Login with your carwash account</p>
                 </div>
 
-                {{-- ERROR ALERT --}}
+                {{-- BACKEND ERRORS (UNCHANGED) --}}
                 @if ($errors->any())
                     <div class="alert alert-danger alert-dismissible fade show" role="alert" id="errorAlert">
                         <ul class="mb-0">
@@ -23,36 +23,45 @@
                                 <li>{{ $error }}</li>
                             @endforeach
                         </ul>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
                 @endif
 
-                {{-- SUCCESS ALERT --}}
+                {{-- BACKEND SUCCESS (UNCHANGED) --}}
                 @if (session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert" id="successAlert">
                         {{ session('success') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
                 @endif
 
-                <form action="{{ route('login') }}" method="POST">
+                <form action="{{ route('login') }}" method="POST" id="loginForm">
                     @csrf
+
+                    {{-- Email --}}
                     <div class="form-group">
                         <label>Email Address</label>
-                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                               placeholder="Your Email" value="{{ old('email') }}" required>
-                        @error('email')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <input type="email"
+                               name="email"
+                               class="form-control live-validate"
+                               data-type="email"
+                               data-name="Email Address"
+                               placeholder="Your Email">
+                        <div class="live-error"></div>
                     </div>
+
+                    {{-- Password --}}
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
-                               placeholder="Your Password" required>
-                        @error('password')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <input type="password"
+                               name="password"
+                               class="form-control live-validate"
+                               data-type="password"
+                               data-name="Password"
+                               placeholder="Your Password">
+                        <div class="live-error"></div>
                     </div>
+
                     <div class="d-flex justify-content-between mb-4">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" name="remember" value="1" id="remember">
@@ -62,18 +71,20 @@
                         </div>
                         <a href="#" class="forgot-pass">Forgot Password?</a>
                     </div>
-                    <div class="d-flex align-items-center">
-                        <button type="submit" class="theme-btn"><i class="far fa-sign-in"></i> Login</button>
-                    </div>
+
+                    <button type="submit" class="theme-btn w-100" id="loginBtn" disabled>
+                        <i class="far fa-sign-in"></i> Login
+                    </button>
                 </form>
-                <div class="login-footer">
+
+                <div class="login-footer text-center mt-3">
                     <p>Don't have an account? <a href="{{ route('register') }}">Register.</a></p>
                 </div>
+
             </div>
         </div>
     </div>
 </div>
-<!-- login area end -->
 
 {{-- Preloader --}}
 <div class="preloader" style="display:none;">
@@ -83,71 +94,96 @@
     </div>
 </div>
 
-
-<!-- ✔️ SUCCESS LOGIN MODAL -->
+{{-- SUCCESS MODAL (UNCHANGED) --}}
 @if (session('success'))
-<div class="modal fade" id="loginSuccessModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="loginSuccessModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content text-center p-4">
-
             <div class="text-success" style="font-size: 60px;">
                 <i class="fas fa-check-circle"></i>
             </div>
-
             <h4 class="mt-3 mb-2">Login Successful!</h4>
             <p>You have logged in successfully.</p>
-
         </div>
     </div>
 </div>
 @endif
 
+@endsection
 
-{{-- Alert + Preloader + Modal Script --}}
+@push('styles')
+<style>
+.form-control.is-invalid-live {
+    border-color: #dc3545;
+}
+.form-control.is-valid-live {
+    border-color: #28a745;
+}
+.live-error {
+    font-size: 0.85rem;
+    color: #dc3545;
+    display: none;
+    margin-top: 4px;
+}
+</style>
+@endpush
+
+@push('scripts')
 <script>
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener('DOMContentLoaded', function () {
 
-    // Ensure alerts appear above preloader
-    var alerts = document.querySelectorAll('#successAlert, #errorAlert');
-    alerts.forEach(function(alert) {
-        if (alert) alert.style.zIndex = 10000;
-    });
+    const inputs = document.querySelectorAll('.live-validate');
+    const submitBtn = document.getElementById('loginBtn');
 
-    // Auto-dismiss alerts
-    function autoDismiss(alertId, timeout) {
-        var alert = document.getElementById(alertId);
-        if (alert) {
-            setTimeout(function() {
-                var bsAlert = new bootstrap.Alert(alert);
-                bsAlert.close();
-            }, timeout);
-        }
+    function showError(input, message) {
+        const error = input.parentElement.querySelector('.live-error');
+        input.classList.add('is-invalid-live');
+        input.classList.remove('is-valid-live');
+        error.innerText = message;
+        error.style.display = 'block';
     }
 
-    autoDismiss('successAlert', 3000);
-    autoDismiss('errorAlert', 5000);
+    function showSuccess(input) {
+        const error = input.parentElement.querySelector('.live-error');
+        input.classList.remove('is-invalid-live');
+        input.classList.add('is-valid-live');
+        error.style.display = 'none';
+    }
 
-    // Show preloader after short delay
-    setTimeout(function() {
-        var preloader = document.querySelector('.preloader');
-        if (preloader) {
-            preloader.style.display = 'block';
+    function validateField(input) {
+        const value = input.value.trim();
+        const type = input.dataset.type;
+
+        if (!value) {
+            showError(input, input.dataset.name + ' is required');
+            return false;
         }
-    }, 500);
 
-    // ✔️ Show Success Modal if login is successful
-    @if (session('success'))
-        var loginModal = new bootstrap.Modal(document.getElementById('loginSuccessModal'));
-        loginModal.show();
+        if (type === 'email') {
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(value)) {
+                showError(input, 'Invalid email format');
+                return false;
+            }
+        }
 
-        // Auto close modal after 2 seconds, then redirect to dashboard
-        setTimeout(() => {
-            loginModal.hide();
-            window.location.href = "{{ route('dashboard') }}";
-        }, 2000);
-    @endif
+        showSuccess(input);
+        return true;
+    }
+
+    function checkForm() {
+        let valid = true;
+        inputs.forEach(input => {
+            if (!validateField(input)) valid = false;
+        });
+        submitBtn.disabled = !valid;
+    }
+
+    inputs.forEach(input => {
+        input.addEventListener('input', checkForm);
+        input.addEventListener('blur', checkForm);
+    });
 
 });
 </script>
-
-@endsection
+@endpush

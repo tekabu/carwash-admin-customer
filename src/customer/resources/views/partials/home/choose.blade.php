@@ -14,20 +14,21 @@
                     <div class="choose-content-wrapper">
                         <div class="choose-item">
                             <div class="choose-item-icon">
-                                <i class="icon-brush"></i>
+                             <i class="fas fa-cogs"></i>
                             </div>
-                            <div class="choose-item-info">
-                                <h3>Eco-Friendly Cleaning</h3>
-                                <p>We use high-quality, eco-safe cleaning products to give your car a deep clean without harming the environment.</p>
+                           <div class="choose-item-info">
+                                <h3>Automated Carwash</h3>
+                                <p>Our advanced automated carwash system streamlines the entire cleaning process, ensuring a faster, more consistent, and highly efficient service for every vehicle.</p>
                             </div>
+
                         </div>
                         <div class="choose-item">
                             <div class="choose-item-icon">
                                 <i class="icon-seat"></i>
                             </div>
                             <div class="choose-item-info">
-                                <h3>Customer-Centered Service</h3>
-                                <p>Your satisfaction drives us. Our friendly and skilled team ensures your experience is fast, smooth, and worry-free.</p>
+                                <h3>Eco-Friendly Cleaning</h3>
+                                <p>We use high-quality, eco-safe cleaning products to give your car a deep clean without harming the environment.</p>
                             </div>
                         </div>
                         <div class="choose-item">

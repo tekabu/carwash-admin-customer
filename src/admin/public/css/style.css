@@ -541,19 +541,6 @@ body.topup-history {
     transition: 0.3s ease;
 }
 
-/* Hover pagination */
-.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-    background: #25ad64;
-    color: #fff !important;
-    border: 1px solid #25ad64;
-}
-
-/* Active pagination button */
-.dataTables_wrapper .dataTables_paginate .paginate_button.current {
-    background: #25ad64;
-    color: #fff !important;
-    border: 1px solid #25ad64;
-}
 
 /* Length menu select */
 .dataTables_length select {
@@ -888,3 +875,6 @@ body.topup-history {
         margin-top: 1rem;
     }
 }
+
+
+
