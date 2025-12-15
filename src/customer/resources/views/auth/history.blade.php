@@ -10,7 +10,7 @@
     <div class="container-fluid px-4">
         <div class="row">
             <div class="col-12">
-                <div class="login-form">
+                <div class="login-form" style="max-width: 80%;">
                     <div class="login-header">
                         <h2>Transaction History</h2>
                         <p>View your car wash transaction history</p>

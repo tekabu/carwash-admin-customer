@@ -27,6 +27,8 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
+    Route::put('/profile', [AuthController::class, 'updateProfile'])->name('profile.update');
+    Route::put('/password/change', [AuthController::class, 'updatePassword'])->name('password.change');
     Route::get('/history', [AuthController::class, 'history'])->name('history');
     Route::get('/top-up', [AuthController::class, 'topUp'])->name('top-up');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

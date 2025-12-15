@@ -139,6 +139,76 @@ class AuthController extends Controller
     }
 
     /**
+     * Update the user profile.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updateProfile(Request $request)
+    {
+        $user = Auth::user();
+
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+            $user->update([
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+            ]);
+
+            if ($user->customer) {
+                $user->customer->update([
+                    'name' => $validated['name'],
+                    'email' => $validated['email'],
+                ]);
+            }
+
+            DB::commit();
+
+            return redirect()->route('profile')->with('success', 'Profile updated successfully!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return back()->withErrors([
+                'error' => 'An error occurred while updating your profile. Please try again.'
+            ])->withInput();
+        }
+    }
+
+    /**
+     * Update the user password.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updatePassword(Request $request)
+    {
+        $user = Auth::user();
+
+        $validated = $request->validate([
+            'current_password' => ['required', 'string'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        if (!Hash::check($validated['current_password'], $user->password)) {
+            return back()->withErrors([
+                'current_password' => 'The current password is incorrect.',
+            ]);
+        }
+
+        $user->update([
+            'password' => Hash::make($validated['password']),
+        ]);
+
+        return redirect()->route('profile')->with('success', 'Password changed successfully!');
+    }
+
+    /**
      * Show the transaction history.
      *
      * @return \Illuminate\View\View
