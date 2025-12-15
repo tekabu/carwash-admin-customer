@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Login')
-@section('breadcrumb_title', 'Login')
+@section('title', 'Reset Password')
+@section('breadcrumb_title', 'Reset Password')
 
 @section('content')
 
@@ -12,12 +12,11 @@
 
                 <div class="login-header">
                     <img src="{{ asset('assets/img/logo/my-account-logo.png') }}" alt="">
-                    <p>Login with your carwash account</p>
+                    <p>Enter your new password</p>
                 </div>
 
-                {{-- BACKEND ERRORS (UNCHANGED) --}}
                 @if ($errors->any())
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert" id="errorAlert">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <ul class="mb-0">
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
@@ -27,87 +26,54 @@
                     </div>
                 @endif
 
-                {{-- BACKEND SUCCESS (UNCHANGED) --}}
                 @if (session('success'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert" id="successAlert">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
                         {{ session('success') }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
                 @endif
 
-                <form action="{{ route('login') }}" method="POST" id="loginForm">
+                <form action="{{ route('password.update') }}" method="POST" id="resetPasswordForm">
                     @csrf
 
-                    {{-- Email --}}
-                    <div class="form-group">
-                        <label>Email Address</label>
-                        <input type="email"
-                               name="email"
-                               class="form-control live-validate"
-                               data-type="email"
-                               data-name="Email Address"
-                               placeholder="Your Email">
-                        <div class="live-error"></div>
-                    </div>
+                    <input type="hidden" name="token" value="{{ $token }}">
+                    <input type="hidden" name="email" value="{{ $email }}">
 
-                    {{-- Password --}}
                     <div class="form-group">
-                        <label>Password</label>
+                        <label>New Password</label>
                         <input type="password"
                                name="password"
                                class="form-control live-validate"
                                data-type="password"
                                data-name="Password"
-                               placeholder="Your Password">
+                               placeholder="New Password">
                         <div class="live-error"></div>
                     </div>
 
-                    <div class="d-flex justify-content-between mb-4">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="remember" value="1" id="remember">
-                            <label class="form-check-label" for="remember">
-                                Remember Me
-                            </label>
-                        </div>
-                        <a href="{{ route('password.request') }}" class="forgot-pass">Forgot Password?</a>
+                    <div class="form-group">
+                        <label>Confirm New Password</label>
+                        <input type="password"
+                               name="password_confirmation"
+                               class="form-control live-validate"
+                               data-type="password_confirmation"
+                               data-name="Confirm Password"
+                               placeholder="Confirm New Password">
+                        <div class="live-error"></div>
                     </div>
 
-                    <button type="submit" class="theme-btn w-100" id="loginBtn" disabled>
-                        <i class="far fa-sign-in"></i> Login
+                    <button type="submit" class="theme-btn w-100" id="submitBtn" disabled>
+                        <i class="far fa-lock"></i> Reset Password
                     </button>
                 </form>
 
                 <div class="login-footer text-center mt-3">
-                    <p>Don't have an account? <a href="{{ route('register') }}">Register.</a></p>
+                    <p>Remember your password? <a href="{{ route('login') }}">Login.</a></p>
                 </div>
 
             </div>
         </div>
     </div>
 </div>
-
-{{-- Preloader --}}
-<div class="preloader" style="display:none;">
-    <div class="loader-ripple">
-        <div></div>
-        <div></div>
-    </div>
-</div>
-
-{{-- SUCCESS MODAL (UNCHANGED) --}}
-@if (session('success'))
-<div class="modal fade" id="loginSuccessModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content text-center p-4">
-            <div class="text-success" style="font-size: 60px;">
-                <i class="fas fa-check-circle"></i>
-            </div>
-            <h4 class="mt-3 mb-2">Login Successful!</h4>
-            <p>You have logged in successfully.</p>
-        </div>
-    </div>
-</div>
-@endif
 
 @endsection
 
@@ -133,7 +99,9 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     const inputs = document.querySelectorAll('.live-validate');
-    const submitBtn = document.getElementById('loginBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    const passwordInput = document.querySelector('input[name="password"]');
+    const confirmPasswordInput = document.querySelector('input[name="password_confirmation"]');
 
     function showError(input, message) {
         const error = input.parentElement.querySelector('.live-error');
@@ -159,10 +127,17 @@ document.addEventListener('DOMContentLoaded', function () {
             return false;
         }
 
-        if (type === 'email') {
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(value)) {
-                showError(input, 'Invalid email format');
+        if (type === 'password') {
+            if (value.length < 8) {
+                showError(input, 'Password must be at least 8 characters');
+                return false;
+            }
+        }
+
+        if (type === 'password_confirmation') {
+            const password = passwordInput.value;
+            if (value !== password) {
+                showError(input, 'Passwords do not match');
                 return false;
             }
         }

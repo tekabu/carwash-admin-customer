@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Customer;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ResetPasswordMail;
+use Carbon\Carbon;
 
 class AuthController extends Controller
 {
@@ -200,5 +203,96 @@ class AuthController extends Controller
         }
 
         return rtrim($template, '/') . '/customer/' . $customerId . '/top-ups';
+    }
+
+    /**
+     * Show the forgot password form.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showForgotPasswordForm()
+    {
+        return view('auth.forgot-password');
+    }
+
+    /**
+     * Handle forgot password request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function forgotPassword(Request $request)
+    {
+        $request->validate([
+            'email' => ['required', 'email', 'exists:users,email'],
+        ]);
+
+        $token = Str::random(64);
+
+        DB::table('password_reset_tokens')->updateOrInsert(
+            ['email' => $request->email],
+            [
+                'email' => $request->email,
+                'token' => Hash::make($token),
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        $resetLink = route('password.reset', ['token' => $token, 'email' => $request->email]);
+
+        Mail::to($request->email)->send(new ResetPasswordMail($resetLink));
+
+        return back()->with('success', 'Password reset link has been sent to your email address.');
+    }
+
+    /**
+     * Show the reset password form.
+     *
+     * @param  string  $token
+     * @return \Illuminate\View\View
+     */
+    public function showResetPasswordForm(Request $request, $token)
+    {
+        return view('auth.reset-password', ['token' => $token, 'email' => $request->email]);
+    }
+
+    /**
+     * Handle reset password request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'token' => ['required'],
+            'email' => ['required', 'email', 'exists:users,email'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $passwordReset = DB::table('password_reset_tokens')
+            ->where('email', $request->email)
+            ->first();
+
+        if (!$passwordReset) {
+            return back()->withErrors(['email' => 'Invalid password reset token.']);
+        }
+
+        if (!Hash::check($request->token, $passwordReset->token)) {
+            return back()->withErrors(['email' => 'Invalid password reset token.']);
+        }
+
+        $tokenCreatedAt = Carbon::parse($passwordReset->created_at);
+        if (Carbon::now()->diffInHours($tokenCreatedAt) > 1) {
+            return back()->withErrors(['email' => 'Password reset token has expired.']);
+        }
+
+        $user = User::where('email', $request->email)->first();
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        DB::table('password_reset_tokens')->where('email', $request->email)->delete();
+
+        return redirect()->route('login')->with('success', 'Your password has been reset successfully. Please login with your new password.');
     }
 }
