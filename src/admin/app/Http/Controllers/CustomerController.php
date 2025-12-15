@@ -13,6 +13,7 @@ use App\Models\Checkout;
 use App\Models\VehicleType;
 use App\Models\SoapType;
 use App\Models\Transaction;
+use App\Services\MqttService;
 
 class CustomerController extends Controller
 {
@@ -472,6 +473,19 @@ class CustomerController extends Controller
 
         // Load relationships
         $checkout->load(['vehicleType', 'soapType']);
+
+        // Send MQTT command to start conveyor
+        try {
+            $mqttService = new MqttService();
+            $mqttService->publishConveyorStart('6UJaRjVcx1AFd9H6zfNky9DgKG08ix_carwash_esp32');
+        } catch (\Exception $e) {
+            // Log error but don't fail checkout
+            \Log::error('Failed to send MQTT conveyor command', [
+                'error' => $e->getMessage(),
+                'checkout_id' => $checkout->id,
+                'reference' => $checkout->reference,
+            ]);
+        }
 
         return response()->json([
             'status' => true,

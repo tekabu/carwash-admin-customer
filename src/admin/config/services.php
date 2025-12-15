@@ -41,4 +41,13 @@ return [
         'redirect' => env('GOOGLE_REDIRECT_URI'),
     ],
 
+    'mqtt' => [
+        'host' => env('MQTT_HOST', 'broker.emqx.io'),
+        'port' => env('MQTT_PORT', 1883),
+        'username' => env('MQTT_USERNAME'),
+        'password' => env('MQTT_PASSWORD'),
+        'client_id' => env('MQTT_CLIENT_ID', 'carwash_admin'),
+        'use_tls' => env('MQTT_USE_TLS', false),
+    ],
+
 ];
