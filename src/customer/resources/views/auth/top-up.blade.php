@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('title', 'Top Up')
-
 @section('breadcrumb_title', 'Top Up')
 
 @section('content')
@@ -45,7 +44,8 @@
                             </div>
 
                             <div class="col-12">
-                                <button type="submit" class="btn btn-primary w-100">Send Top Up Request</button>
+                                <!-- GREEN BUTTON -->
+                                <button type="submit" class="btn btn-success w-100">Send Top Up Request</button>
                             </div>
 
                             <div class="col-12">
@@ -68,7 +68,7 @@
                     @else
                         <div class="table-responsive">
                             <table id="topUpsTable" class="table table-striped table-hover" style="width:100%">
-                                <thead>
+                                <thead class="table-success"> <!-- GREEN TABLE HEADER -->
                                     <tr>
                                         <th>Date</th>
                                         <th>ID</th>
@@ -104,11 +104,47 @@
 
 @push('styles')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+
+<!-- CUSTOM GREEN THEME -->
+<style>
+    :root {
+        --bs-primary: #28a745 !important; /* Main green */
+        --bs-primary-rgb: 40, 167, 69 !important;
+    }
+
+    .btn-primary {
+        background-color: var(--bs-primary) !important;
+        border-color: var(--bs-primary) !important;
+    }
+
+    .text-primary {
+        color: var(--bs-primary) !important;
+    }
+
+    .bg-primary {
+        background-color: var(--bs-primary) !important;
+    }
+
+    /* DataTables search and pagination green */
+    .dataTables_wrapper .dataTables_filter input {
+        border: 1px solid #28a745;
+    }
+
+    .page-item.active .page-link {
+        background-color: #28a745 !important;
+        border-color: #28a745 !important;
+    }
+
+    .page-link:hover {
+        color: #28a745 !important;
+    }
+</style>
 @endpush
 
 @push('scripts')
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+
 <script>
     $(document).ready(function() {
         $('#topUpsTable').DataTable({
@@ -130,6 +166,7 @@
         });
     });
 </script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const topUpForm = document.getElementById('topUpForm');

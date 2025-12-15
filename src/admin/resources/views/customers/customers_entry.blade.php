@@ -3,6 +3,8 @@
         <input type="hidden" name="id" value="{{ $row->id }}">
     @endif
 
+    <!-- name of customer -->
+
     @php
         $uuid_name = Str::uuid();
     @endphp
@@ -13,6 +15,9 @@
                 value="{{ $row->name ?? '' }}" class="form-control">
         </div>
     </div>
+
+   
+<!-- Email field -->
 
     @php
         $uuid_email = Str::uuid();
@@ -25,35 +30,53 @@
         </div>
     </div>
 
-    <!-- @php
+
+    @unless(isset($row))
+    <!-- Password Field -->
+    @php
         $uuid_password = Str::uuid();
     @endphp
     <div class="mb-3">
         <div class="form-group">
-            <label for="{{ $uuid_password }}" class="form-label">Password
-                @unless(isset($row))
-                    <span class="required"> *</span>
-                @else
-                    <small class="text-muted">(Leave blank to keep current password)</small>
-                @endunless
+            <label for="{{ $uuid_password }}" class="form-label">
+                Password<span class="required"> *</span>
             </label>
-            <input id="{{ $uuid_password }}" name="password" placeholder="Password" required="required" type="password" class="form-control">
+            <input
+                id="{{ $uuid_password }}"
+                name="password"
+                placeholder="Password"
+                type="password"
+                required
+                class="form-control"
+            >
         </div>
     </div>
 
-    @php
-        $uuid_password_confirmation = Str::uuid();
-    @endphp
-    <div class="mb-3">
-        <div class="form-group">
-            <label for="{{ $uuid_password_confirmation }}" class="form-label">Confirm Password
-                @unless(isset($row))
-                    <span class="required"> *</span>
-                @endunless
-            </label>
-            <input id="{{ $uuid_password_confirmation }}" name="password_confirmation" placeholder="Confirm Password" required="required" type="password" class="form-control">
+    <!-- Confirm Password Field -->
+        @php
+            $uuid_password_confirmation = Str::uuid();
+        @endphp
+        <div class="mb-3">
+            <div class="form-group">
+                <label for="{{ $uuid_password_confirmation }}" class="form-label">
+                    Confirm Password<span class="required"> *</span>
+                </label>
+                <input
+                    id="{{ $uuid_password_confirmation }}"
+                    name="password_confirmation"
+                    placeholder="Confirm Password"
+                    type="password"
+                    required
+                    class="form-control"
+                >
+            </div>
         </div>
-    </div> -->
+        @endunless
+
+
+
+    <!-- Phone number field -->
+
 
     @php
         $uuid_phone = Str::uuid();
@@ -66,6 +89,9 @@
         </div>
     </div>
 
+
+    <!-- RFID field -->
+
     @php
         $uuid_rfid = Str::uuid();
     @endphp
@@ -76,6 +102,9 @@
                 value="{{ $row->rfid ?? '' }}" class="form-control">
         </div>
     </div>
+
+    <!-- Address field -->
+
 
     @php
         $uuid_address = Str::uuid();

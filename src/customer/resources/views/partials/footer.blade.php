@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-6 align-self-center">
                     <p class="copyright-text">
-                        &copy; Copyright <span id="date"></span> <a href="#"> Carwash </a> All Rights Reserved.
+                        &copy; Copyright <span id="date"></span> <a href="#"> Classy Kars Carwash </a> All Rights Reserved.
                     </p>
                 </div>
                <div class="col-md-6 align-self-center">

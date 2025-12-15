@@ -92,7 +92,7 @@
                 <div class="row step-row align-items-center mb-5 flex-md-row-reverse">
                     <div class="col-md-6">
                         <div class="image-card">
-                            <img src="{{ asset('publicx/assets/img/about/tap5.png') }}" class="step-img uniform-img">
+                            <img src="{{ asset('publicx/assets/img/about/rfid.avif') }}" class="step-img uniform-img">
                         </div>
                     </div>
                     <div class="col-md-6 fade-up">

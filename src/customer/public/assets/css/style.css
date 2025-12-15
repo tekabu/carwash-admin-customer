@@ -725,8 +725,7 @@ scroll-top css
 }
 
 
-
-
+    
 
 /* ===================
 header top css
@@ -1415,36 +1414,38 @@ search popup
 
 
 /* ===================
-hero css 
-====================== */
+   HERO CSS (Optimized)
+======================= */
 
 .hero-section {
   position: relative;
+  overflow: hidden;
 }
 
 .hero-single {
-  padding-top: 150px;
-  padding-bottom: 150px;
+  padding: 140px 0;
   background-position: center !important;
   background-size: cover !important;
   background-repeat: no-repeat !important;
   display: flex;
   align-items: center;
-  justify-content: center;
   position: relative;
   z-index: 1;
 }
 
+/* Gradient overlay (improved for readability) */
 .hero-single::before {
   content: "";
   position: absolute;
-  width: 100%;
-  height: 100%;
-  left: -0.5px;
-  top: 0;
-  background: linear-gradient(50deg, #1a4b26 0%, #229f37 0%, rgba(34, 159, 55, 0) 100%);
-
+  inset: 0;
   z-index: -1;
+  background: linear-gradient(
+    135deg,
+    rgba(13, 53, 23, 0.85) 0%,
+    rgba(28, 130, 52, 0.70) 40%,
+    rgba(47, 173, 73, 0.45) 75%,
+    rgba(47, 173, 73, 0) 100%
+  );
 }
 
 .hero-single .hero-content {
@@ -1454,42 +1455,42 @@ hero css
   height: 100%;
 }
 
-.hero-single .hero-content .hero-title {
+.hero-single .hero-title {
   color: #fff;
-  font-size: 70px;
+  font-size: 64px;
   font-weight: 700;
   margin: 20px 0;
   text-transform: capitalize;
+  line-height: 1.1;
 }
 
-.hero-single .hero-content .hero-title span{
+.hero-single .hero-title span {
   color: #9af6a9;
 }
 
-.hero-single .hero-content .hero-sub-title {
-  color: #ffffff;
-  font-size: 28px;
-  position: relative;
+.hero-single .hero-sub-title {
+  color: #fff;
+  font-size: 26px;
   text-transform: uppercase;
 }
 
 .hero-single .hero-content p {
   color: #fff;
+  font-size: 18px;
   line-height: 30px;
-  font-weight: 400;
   margin-bottom: 20px;
 }
 
-.hero-single .hero-content .hero-btn {
-  gap: 2rem;
+.hero-single .hero-btn {
   display: flex;
+  gap: 1.5rem;
   margin-top: 1rem;
-  justify-content: start;
+  flex-wrap: wrap;
 }
 
+/* Dots */
 .hero-section .owl-dots {
   position: absolute;
-  text-align: center;
   top: 50%;
   right: 40px;
   transform: translateY(-50%);
@@ -1506,67 +1507,60 @@ hero css
   width: 15px;
   height: 15px;
   display: inline-block;
-  background-color: #fff;
-  transition: all .5s ease-in-out;
+  background: #fff;
+  transition: all 0.5s ease-in-out;
 }
 
 .hero-section .owl-dots .owl-dot.active span {
   background-color: #008516;
 }
 
-
-/* hero-slider2 */
-
-.hero-slider2.owl-theme .owl-nav {
-  margin-top: 0px;
-}
-
+/* Arrows */
 .hero-slider2.owl-theme .owl-nav [class*=owl-] {
   color: #fff;
   font-size: 30px;
-  margin: 0;
-  padding: 0;
   background: rgba(255, 255, 255, 0.2);
-  display: inline-block;
-  cursor: pointer;
   height: 55px;
   width: 55px;
-  border-radius: 50px;
+  border-radius: 50%;
   line-height: 55px;
   text-align: center;
-  transition: all .5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
 .hero-slider2.owl-theme .owl-nav [class*=owl-]:hover {
   background: #fff;
-  color: #229f37; /*slider arrow for pictures*/
+  color: #229f37;
 }
 
 .hero-slider2.owl-theme .owl-nav .owl-prev {
+  position: absolute;
   left: 40px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.hero-slider2.owl-theme .owl-nav .owl-next {
-  right: 40px;
-}
-
-.hero-slider2.owl-theme .owl-nav .owl-prev,
 .hero-slider2.owl-theme .owl-nav .owl-next {
   position: absolute;
+  right: 40px;
   top: 50%;
-  transform: translate(0, -50%);
+  transform: translateY(-50%);
 }
 
-@media all and (max-width: 1199px) {
+/* ===================
+   MEDIA QUERIES
+======================= */
 
-  .hero-single .hero-content .hero-title {
-    font-size: 37px;
+/* Large tablets */
+@media (max-width: 1199px) {
+  .hero-single .hero-title {
+    font-size: 44px;
   }
 
   .hero-slider2.owl-theme .owl-nav .owl-prev,
   .hero-slider2.owl-theme .owl-nav .owl-next {
     top: unset;
-    bottom: 5px !important;
+    bottom: 10px;
   }
 
   .hero-slider2.owl-theme .owl-nav .owl-prev {
@@ -1577,49 +1571,104 @@ hero css
   .hero-slider2.owl-theme .owl-nav .owl-next {
     right: 40px;
   }
-
 }
 
-@media all and (max-width: 991px) {
-
-  .hero-single::before{
-    background: #1a4b26;
+/* Tablets */
+@media (max-width: 991px) {
+  .hero-single {
+    padding: 120px 0;
   }
 
-  .hero-single .hero-content .hero-title {
-    font-size: 35px;
+  .hero-single .hero-title {
+    font-size: 38px;
   }
 
   .hero-section .owl-dots {
     top: unset;
     right: 20px;
     bottom: 20px;
+    transform: none;
   }
 
   .hero-section .owl-dots .owl-dot {
     display: inline-block;
   }
-
 }
 
-@media all and (max-width: 767px) {
+/* Mobile phones */
+@media (max-width: 767px) {
+  .hero-single {
+    padding: 100px 0;
+    text-align: center;
+  }
 
-  .hero-single .hero-content .hero-sub-title {
+  .hero-single .hero-title {
+    font-size: 32px;
+  }
+
+  .hero-single .hero-sub-title {
     font-size: 18px;
   }
 
-  .hero-single .hero-content .hero-btn {
-    gap: 2rem;
+  .hero-single .hero-btn {
+    justify-content: center;
   }
 
-  .hero-single .hero-content .theme-btn {
-    padding-left: 20px;
+  .hero-single p {
+    font-size: 16px;
+    line-height: 26px;
   }
 
   .hero-img {
     display: none;
   }
 }
+
+/* ===== MOBILE VIEW OPTIMIZATION (LEFT-ALIGNED CONTENT) ===== */
+
+@media (max-width: 767px) {
+
+  /* Align all hero content to left */
+  .hero-single .hero-content {
+    text-align: left !important;
+    align-items: flex-start !important;
+  }
+
+  .hero-single .hero-content .hero-title {
+    font-size: 32px;
+    text-align: left;
+  }
+
+  .hero-single .hero-content .hero-sub-title {
+    font-size: 18px;
+    text-align: left;
+  }
+
+  .hero-single .hero-content p {
+    text-align: left;
+  }
+
+  /* Buttons aligned left */
+  .hero-single .hero-content .hero-btn {
+    justify-content: flex-start !important;
+  }
+
+  /* Keep green overlay but make gradient softer in mobile */
+  .hero-single::before {
+    background: linear-gradient(
+      60deg,
+      rgba(26, 75, 38, 0.95) 0%,
+      rgba(34, 159, 55, 0.75) 50%,
+      rgba(34, 159, 55, 0.2) 100%
+    ) !important;
+  }
+
+  /* Hide hero image (if any) */
+  .hero-img {
+    display: none !important;
+  }
+}
+
 
 /* =====================
 play btn
@@ -2733,6 +2782,33 @@ IMAGE SIDE
 .choose-img:hover {
   filter: brightness(1);
   transform: scale(1.02);
+}
+
+/* ============================
+   MOBILE FIX FOR CHOOSE IMAGE
+=============================== */
+@media (max-width: 991px) {
+  .choose-img {
+    margin-right: 0 !important;
+    height: 300px !important;
+    clip-path: none !important;
+    border-radius: 15px;
+    background-size: cover !important;
+    background-position: center !important;
+    filter: brightness(1) !important;
+  }
+
+  .choose-img::after {
+    background: rgba(0,0,0,0.2) !important;
+    backdrop-filter: none !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .choose-img {
+    height: 240px !important; /* Better fit for small screens */
+    border-radius: 12px;
+  }
 }
 
 /* ===================
@@ -5648,17 +5724,17 @@ body.rtl-mode .price-wrapper {
 }
 
 /* ===================
-Auth CSS (Premium Gradient + Glow)
+Auth CSS (Premium Gradient + Glow) - Improved Spacing
 ====================== */
 
 .login-form {
-  padding: 50px 40px;
+  padding: 60px 50px; /* mas maluwag kaysa dati */
   background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
   border-radius: 25px;
   border-bottom: 5px solid #229f37;
   box-shadow: 0 25px 60px rgba(0,0,0,0.15);
   transition: all .4s ease-in-out;
-  max-width: 480px;
+  max-width: 520px; /* bahagyang mas malaki */
   margin: auto;
 }
 
@@ -5669,20 +5745,20 @@ Auth CSS (Premium Gradient + Glow)
 
 .login-header {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 55px;
   position: relative;
 }
 
 .login-header img {
   width: 160px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .login-header h3 {
   color: #229f37;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   font-weight: 800;
-  font-size: 28px;
+  font-size: 30px; /* medyo mas malaki */
   letter-spacing: 1px;
 }
 
@@ -5697,13 +5773,13 @@ Auth CSS (Premium Gradient + Glow)
 }
 
 .login-form .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 25px; /* dagdagan ng space */
 }
 
 .login-form .form-control {
   border: 1px solid #e0e0e0;
   border-radius: 12px;
-  padding: 14px 18px;
+  padding: 16px 20px; /* mas spacious */
   background: #fff;
   color: #263238;
   box-shadow: inset 0 4px 8px rgba(0,0,0,0.05);
@@ -5712,7 +5788,7 @@ Auth CSS (Premium Gradient + Glow)
 
 .login-form .form-control:focus {
   border-color: #229f37;
-  box-shadow: 0 0 15px rgba(34,159,55,0.3);
+  box-shadow: 0 0 18px rgba(34,159,55,0.35); /* glow effect mas visible */
   background: #fff;
   color: #263238;
 }
@@ -5737,7 +5813,7 @@ Auth CSS (Premium Gradient + Glow)
   width: 100%;
   background: #1a7829;
   color: #fff;
-  padding: 14px;
+  padding: 16px; /* mas comfortable */
   font-weight: 600;
   border-radius: 15px;
   text-transform: uppercase;
@@ -5766,12 +5842,12 @@ Auth CSS (Premium Gradient + Glow)
 
 .login-form .theme-btn:hover {
   background: #1a7829;
-  box-shadow: 0 0 15px rgba(34,159,55,0.4), 0 0 30px rgba(45,183,255,0.4);
+  box-shadow: 0 0 20px rgba(34,159,55,0.4), 0 0 35px rgba(45,183,255,0.4); /* mas malaki glow */
   transform: translateY(-3px);
 }
 
 .login-footer {
-  margin-top: 25px;
+  margin-top: 30px; /* dagdagan ng spacing */
   text-align: center;
 }
 
@@ -5787,12 +5863,12 @@ Auth CSS (Premium Gradient + Glow)
 
 .social-login {
   border-top: 1px solid #eaeaea;
-  margin-top: 20px;
-  padding-top: 20px;
+  margin-top: 25px;
+  padding-top: 25px;
 }
 
 .social-login p {
-  margin-bottom: 15px;
+  margin-bottom: 18px;
   color: #555;
 }
 
@@ -5804,37 +5880,38 @@ Auth CSS (Premium Gradient + Glow)
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
+  width: 55px; /* medyo mas malaki */
+  height: 55px;
+  line-height: 55px;
   background: #229f37;
   border-radius: 50%;
-  margin: 5px;
+  margin: 6px;
   transition: all .3s ease-in-out;
-  box-shadow: 0 4px 15px rgba(34,159,55,0.3);
+  box-shadow: 0 4px 18px rgba(34,159,55,0.3);
 }
 
 .social-login-list a i {
   color: #fff;
-  font-size: 20px;
+  font-size: 22px;
 }
 
 .social-login-list a:hover {
   background: #229f37;
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(34,159,55,0.4), 0 0 20px rgba(45,183,255,0.3);
+  box-shadow: 0 10px 28px rgba(34,159,55,0.4), 0 0 22px rgba(45,183,255,0.3);
 }
 
 /* Responsive adjustments */
 @media (max-width: 991px) {
   .login-form {
-    padding: 40px 30px;
+    padding: 50px 35px;
+    max-width: 100%; /* full width sa medium screens */
   }
 }
 
 @media (max-width: 767px) {
   .login-header h3 {
-    font-size: 24px;
+    font-size: 26px;
   }
 
   .login-header p {
@@ -5842,13 +5919,13 @@ Auth CSS (Premium Gradient + Glow)
   }
 
   .login-form .theme-btn {
-    padding: 12px;
+    padding: 14px;
   }
 
   .social-login-list a {
-    width: 45px;
-    height: 45px;
-    line-height: 45px;
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
   }
 }
 
@@ -6047,7 +6124,7 @@ footer css
 ====================== */
 
 .footer-area {
-  background:#2A3B89;
+  background: #2A3B89;
   position: relative;
   z-index: 1;
 }
@@ -6093,9 +6170,9 @@ footer css
   position: absolute;
   left: -50px;
   top: 0;
-  width: 40%;
+  width: 50%;
   height: 100%;
-  background: #229f37;
+  background: #285C23;
   border-radius: 10px;
   transform: skew(20deg);
   z-index: -1;
@@ -6129,7 +6206,7 @@ footer css
 }
 
 .copyright .copyright-text a {
-  color: #1a4b26;
+  color: #8FD289;
   font-weight: 500;
 }
 
@@ -6301,7 +6378,7 @@ footer css
   }
 
   .copyright .copyright-text a{
-    color: #2DB7FF;
+    color: #8FD289;
   }
 }
 

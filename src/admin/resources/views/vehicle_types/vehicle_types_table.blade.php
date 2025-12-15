@@ -180,7 +180,7 @@
                 buttons: [
                     {
                         text: '<i class="ph-plus"></i> Add New',
-                        className: 'btn-primary',
+                        className: 'btn-success',
                         action: function(e, dt, node, config) {
                             $.ajax({
                                 url: '{{ route("$route.create") }}',

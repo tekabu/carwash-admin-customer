@@ -282,14 +282,14 @@
     font-size: 20px;
     padding: 16px 45px;
     border-radius: 45px;
-    background: #00cc66;
+    background: #0a532eff;
     color: #ffffffff;
     font-weight: 600;
     transition: all 0.3s ease;
 }
 
 .see-more-btn:hover {
-    background: #00994d;
+    background: #0d8047ff;
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(0,204,102,0.25);
 }

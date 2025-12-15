@@ -14,14 +14,14 @@
                             </h1>
                             <p class="wow animate__animated animate__fadeInUp" data-wow-duration="1s"
                                 data-wow-delay=".75s">
-                                Start your classy car care journey with a thorough wash that removes dirt, dust, and grime 
-                                — leaving your vehicle spotless, fresh, and ready for protection.
+                                Start your classy car care journey with a thorough wash that removes dirt, dust, and grime, 
+                                leaving your vehicle spotless, fresh, and ready for protection.
                             </p>
                             <div class="hero-btn wow animate__animated animate__fadeInUp" data-wow-duration="1s"
                                 data-wow-delay="1s">
-                                <a href="#" class="theme-btn">About More<i class="far fa-arrow-right"></i></a>
-                                <a href="#" class="theme-btn theme-btn2">Learn More<i
-                                        class="far fa-arrow-right"></i></a>
+                                <a href="{{ route('register') }}" class="theme-btn">Get Started<i class="far fa-arrow-right"></i></a>
+                               
+                                        
                             </div>
                         </div>
                     </div>
@@ -42,13 +42,13 @@
                             <p class="wow animate__animated animate__fadeInUp" data-wow-duration="1s"
                                 data-wow-delay=".75s">
                                Give your car lasting brilliance and defense with advanced coatings that shield your paint from UV rays, 
-                               scratches, and water spots — keeping that showroom glow for years.
+                               scratches, and water spots, keeping that showroom glow for years.
                             </p>
                             <div class="hero-btn wow animate__animated animate__fadeInUp" data-wow-duration="1s"
                                 data-wow-delay="1s">
-                                <a href="#" class="theme-btn">About More<i class="far fa-arrow-right"></i></a>
-                                <a href="#" class="theme-btn theme-btn2">Learn More<i
-                                        class="far fa-arrow-right"></i></a>
+                                <a href="{{ route('register') }}" class="theme-btn">Get Started<i class="far fa-arrow-right"></i></a>
+                               
+                                        
                             </div>
                         </div>
                     </div>
@@ -68,14 +68,13 @@
                             </h1>
                             <p class="wow animate__animated animate__fadeInUp" data-wow-duration="1s"
                                 data-wow-delay=".75s">
-                                Finish strong with a full interior and exterior detailing service — restoring every inch of your 
+                                Finish strong with a full interior and exterior detailing service, restoring every inch of your 
                                 car’s beauty and giving it that flawless, “Classy Kars” finish.
                             </p>
                             <div class="hero-btn wow animate__animated animate__fadeInUp" data-wow-duration="1s"
                                 data-wow-delay="1s">
-                                <a href="#" class="theme-btn">About More<i class="far fa-arrow-right"></i></a>
-                                <a href="#" class="theme-btn theme-btn2">Learn More<i
-                                        class="far fa-arrow-right"></i></a>
+                                <a href="{{ route('register') }}" class="theme-btn">Get Started<i class="far fa-arrow-right"></i></a>
+                                
                             </div>
                         </div>
                     </div>

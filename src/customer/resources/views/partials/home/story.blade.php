@@ -6,7 +6,7 @@
             <!-- Left Side Image -->
             <div class="col-lg-6">
                 <div class="about-image">
-                    <img src="assets/img/carwash-bg.jpg" alt="Carwash Background" class="img-fluid rounded-3 shadow">
+                    <img src="{{ asset('publicx/assets/img/logo/classy-icon.png')}}" alt="Carwash Background" class="img-fluid rounded-3 shadow">
                 </div>
             </div>
 
@@ -14,26 +14,26 @@
             <div class="col-lg-6">
                 <div class="about-content">
                     <span class="section-tagline">Our Story</span>
-                    <h2 class="section-title">A Carwash Built on <span>Quality & Trust</span></h2>
+                    <h2 class="section-title">A Carwash <span>You Can Trust</span></h2>
                     <p class="mt-3">
-                        Our carwash began with a simple mission — to bring professional, reliable, 
-                        and consistent car care to every driver. With modern equipment, trained staff, 
-                        and a commitment to excellence, we deliver a premium service that goes beyond 
-                        a basic wash.
+                       We started our carwash with one simple goal: to make every car look its best, every time. With modern equipment,
+                       skilled staff, and a focus on quality, 
+                       we provide a service you can rely on fast, safe, and thorough.
+                        Whether you need a quick wash, a full detail, or a regular care,
+                        we’re here to keep your vehicle shining 
+                        easily, efficiently, and at a great value.
                     </p>
                     <p>
-                        Whether you're looking for a quick clean, a full detailing, or a regular 
-                        membership, we’re here to give your vehicle the shine it deserves — safely, 
-                        efficiently, and affordably.
+                       
                     </p>
 
                     <div class="about-stats mt-4">
                         <div class="stat-item">
-                            <h4>5+ Years</h4>
+                            <h4>2+ Years</h4>
                             <p>Industry Experience</p>
                         </div>
                         <div class="stat-item">
-                            <h4>10,000+</h4>
+                            <h4>5,000+</h4>
                             <p>Vehicles Serviced</p>
                         </div>
                         <div class="stat-item">
