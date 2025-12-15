@@ -37,6 +37,7 @@
                                         <th>Soap Type</th>
                                         <th>Soap Type Price</th>
                                         <th>Total Price</th>
+                                        <th>Points Earned</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -48,6 +49,7 @@
                                             <td>{{ $transaction->soap_type_name ?? 'N/A' }}</td>
                                             <td>₱{{ number_format($transaction->soap_type_amount ?? 0, 2) }}</td>
                                             <td>₱{{ number_format($transaction->total_amount ?? 0, 2) }}</td>
+                                            <td>{{ number_format(($transaction->new_points ?? 0) - ($transaction->current_points ?? 0), 2) }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
